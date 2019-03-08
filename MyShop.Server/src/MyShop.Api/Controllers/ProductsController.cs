@@ -14,10 +14,10 @@ namespace MyShop.Api.Controllers
         {
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<ProductDto>> Get(Guid id)
+        [HttpGet("{id:guid}")]
+        public async Task<ActionResult<ProductDto>> Get([FromRoute] GetProduct query)
         {
-            var productDto = await _dispatcher.QueryAsync<ProductDto>(new GetProduct() { Id = id });
+            var productDto = await _dispatcher.QueryAsync(query);
             
             return Single(productDto);
         }
