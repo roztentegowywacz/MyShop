@@ -1,6 +1,7 @@
 using System.Reflection;
 using Autofac;
 using MyShop.Core.Domain.Products;
+using MyShop.Infrastructure.Mongo;
 
 namespace MyShop.Infrastructure
 {
@@ -12,8 +13,8 @@ namespace MyShop.Infrastructure
             builder.RegisterAssemblyTypes(assembly)
                 .AsImplementedInterfaces()
                 .InstancePerLifetimeScope();
-            // builder.AddMongoDB();
-            // builder.AddMongoDBRepository<Product>("Products");
+            builder.AddMongoDB();
+            builder.AddMongoDBRepository<Product>("Products");
         }
     }
 }
