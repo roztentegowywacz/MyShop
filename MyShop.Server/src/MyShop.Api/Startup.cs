@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MyShop.Infrastructure;
+using MyShop.Infrastructure.Mongo;
 using MyShop.Infrastructure.Mvc;
 using MyShop.Services;
 
@@ -62,6 +63,8 @@ namespace MyShop.Api
             {
                 Container.Dispose();
             });
+
+            MongoDbInitializer.RegisterConventions();
         }
     }
 }

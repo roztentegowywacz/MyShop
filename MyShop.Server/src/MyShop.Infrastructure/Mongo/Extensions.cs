@@ -12,7 +12,7 @@ namespace MyShop.Infrastructure.Mongo
             builder.Register(ctx =>
             {
                 var configuration = ctx.Resolve<IConfiguration>();
-                var options = configuration.GetValue<MongoDbOptions>("mongo");
+                var options = configuration.GetSection("mongo").Get<MongoDbOptions>();
                 return options;
             }).SingleInstance();
 
@@ -20,7 +20,7 @@ namespace MyShop.Infrastructure.Mongo
             {
                 var options = ctx.Resolve<MongoDbOptions>();
                 return new MongoClient(options.ConnectionString);
-            });
+            }).SingleInstance();
 
             builder.Register(ctx =>
             {
@@ -28,16 +28,12 @@ namespace MyShop.Infrastructure.Mongo
                 var client = ctx.Resolve<MongoClient>();
                 return client.GetDatabase(options.Database);
             }).InstancePerLifetimeScope();
-
-            builder.RegisterType<MongoDbInitializer>()
-                .As<IMongoDbInitializer>()
-                .InstancePerLifetimeScope();
         }
 
         public static void AddMongoDBRepository<TEntity>(this ContainerBuilder builder, string collectionName)
             where TEntity : IIdentifiable
-            => builder.Register(ctx => new MongoRepository<TEntity>(ctx.Resolve<IMongoDatabase>(), collectionName))
-                .As<IMongoRepository<TEntity>>()
+            => builder.Register(ctx => new MongoDbRepository<TEntity>(ctx.Resolve<IMongoDatabase>(), collectionName))
+                .As<IMongoDbRepository<TEntity>>()
                 .InstancePerLifetimeScope();
     }
 }

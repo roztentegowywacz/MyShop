@@ -45,7 +45,7 @@ namespace MyShop.Infrastructure.Mvc
             var propertyName = memberExpression.Member.Name.ToLowerInvariant();
             var modelType = model.GetType();
             var field = modelType.GetFields(BindingFlags.Instance | BindingFlags.NonPublic)
-                .SingleOrDefault(x => x.Name.ToLowerInvariant().StartsWith(propertyName));
+                .SingleOrDefault(x => x.Name.ToLowerInvariant().StartsWith($"<{propertyName}>"));
             if (field is null)
             {
                 return model;

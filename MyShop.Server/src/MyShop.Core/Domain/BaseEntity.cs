@@ -8,9 +8,9 @@ namespace MyShop.Core.Domain
         public DateTime CreatedDate { get; protected set; }
         public DateTime UpdatedDate { get; protected set; }
 
-        public BaseEntity()
+        public BaseEntity(Guid id)
         {
-            Id = Guid.NewGuid();
+            Id = id;
             CreatedDate = DateTime.UtcNow;
             SetUpdatedDate();
         }

@@ -6,7 +6,7 @@ namespace MyShop.Api.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class ApiController : ControllerBase
+    public abstract class ApiController : ControllerBase
     {
         protected readonly IDispatcher _dispatcher;
 

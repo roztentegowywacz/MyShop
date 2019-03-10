@@ -6,11 +6,11 @@ using MyShop.Core.Domain;
 
 namespace MyShop.Infrastructure.Mongo
 {
-    public class MongoRepository<TEntity> : IMongoRepository<TEntity> where TEntity : IIdentifiable
+    public class MongoDbRepository<TEntity> : IMongoDbRepository<TEntity> where TEntity : IIdentifiable
     {
         protected IMongoCollection<TEntity> Collection { get; }
 
-        public MongoRepository(IMongoDatabase database, string collectionName)
+        public MongoDbRepository(IMongoDatabase database, string collectionName)
 		{
 			Collection = database.GetCollection<TEntity>(collectionName);
 		}

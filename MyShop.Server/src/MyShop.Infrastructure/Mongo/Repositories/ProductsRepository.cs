@@ -7,9 +7,9 @@ namespace MyShop.Infrastructure.Mongo.Repositories
 {
     public class ProductsRepository : IProductsRepository
     {
-        private readonly IMongoRepository<Product> _repository;
+        private readonly IMongoDbRepository<Product> _repository;
 
-        public ProductsRepository(IMongoRepository<Product> repository)
+        public ProductsRepository(IMongoDbRepository<Product> repository)
         {
             _repository = repository;
         }
