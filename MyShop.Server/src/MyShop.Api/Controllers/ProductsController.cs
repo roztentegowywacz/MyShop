@@ -6,6 +6,7 @@ using MyShop.Services.Products;
 using MyShop.Services.Products.Commands;
 using MyShop.Services.Products.Dtos;
 using MyShop.Services.Products.Queries;
+using MyShop.Infrastructure.Mvc;
 
 namespace MyShop.Api.Controllers
 {
@@ -26,7 +27,7 @@ namespace MyShop.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Post(CreateProduct command)
         {
-            await _dispatcher.SendAsync(command);
+            await _dispatcher.SendAsync(command.BindId(c => c.Id));
 
             return Ok();
         } 

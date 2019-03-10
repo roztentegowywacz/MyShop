@@ -1,9 +1,10 @@
 using System;
+using MyShop.Core.Domain;
 using Newtonsoft.Json;
 
 namespace MyShop.Services.Products.Commands
 {
-    public class CreateProduct : ICommand
+    public class CreateProduct : ICommand, IIdentifiable
     {
         public Guid Id { get; }
         public string Name { get; }
