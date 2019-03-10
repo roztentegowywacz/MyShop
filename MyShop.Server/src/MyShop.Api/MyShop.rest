@@ -1,10 +1,12 @@
-@url = http://localhost:500
+@url = http://localhost:5000
 
 ### Create new product
-POST {{url}}/Products
+
+POST {{url}}/products
 Content-Type: application/json
 
 {
+    "id": "f09291c2-54ca-488e-bd18-e5620c273455",
     "name": "new_project",
     "description": "sample product",
     "vendor": "vendor",
