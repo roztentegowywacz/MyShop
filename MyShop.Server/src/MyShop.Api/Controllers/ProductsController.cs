@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MyShop.Services.Dispatchers;
 using MyShop.Services.Products;
+using MyShop.Services.Products.Commands;
 using MyShop.Services.Products.Dtos;
 using MyShop.Services.Products.Queries;
 
@@ -21,5 +22,13 @@ namespace MyShop.Api.Controllers
             
             return Single(productDto);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Post(CreateProduct command)
+        {
+            await _dispatcher.SendAsync(command);
+
+            return Ok();
+        } 
     }
 }
