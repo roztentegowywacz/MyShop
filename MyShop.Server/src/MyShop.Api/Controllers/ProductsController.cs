@@ -7,6 +7,7 @@ using MyShop.Services.Products.Commands;
 using MyShop.Services.Products.Dtos;
 using MyShop.Services.Products.Queries;
 using MyShop.Infrastructure.Mvc;
+using MyShop.Core.Domain;
 
 namespace MyShop.Api.Controllers
 {
@@ -28,8 +29,7 @@ namespace MyShop.Api.Controllers
         public async Task<IActionResult> Post(CreateProduct command)
         {
             await _dispatcher.SendAsync(command.BindId(c => c.Id));
-
-            return Ok();
-        } 
+            return CreatedAtAction(nameof(Get), new GetProduct(){ Id = command.Id }, null);
+        }
     }
 }
