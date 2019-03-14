@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using MyShop.Core.Domain.Products;
 using MyShop.Core.Domain.Products.Repositories;
+using MyShop.Core.Types;
 
 namespace MyShop.Infrastructure.Mongo.Repositories
 {
@@ -19,5 +20,7 @@ namespace MyShop.Infrastructure.Mongo.Repositories
 
         public async Task<Product> GetAsync(Guid id)
             => await _repository.GetAsync(id);
+
+        public async Task<PagedResult<Product>> BrowseAsync(BrowseProducts query)
     }
 }

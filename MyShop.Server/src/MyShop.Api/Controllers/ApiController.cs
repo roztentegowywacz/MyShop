@@ -30,5 +30,5 @@ namespace MyShop.Api.Controllers
 
             return NotFound();
         }
-    }
-}
+
+        protected ActionResult Collection<T>()

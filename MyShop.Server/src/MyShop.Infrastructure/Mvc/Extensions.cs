@@ -29,7 +29,7 @@ namespace MyShop.Infrastructure.Mvc
                 o.SerializerSettings.Converters.Add(new StringEnumConverter());
             });
 
-        public static T BindId<T>(this T model, Expression<Func<T, Guid>> expression)
+        public static T BindId<T>(this T model, Expression<Func<T, Guid>> expression) where T : IIdentifiable
             => model.Bind<T, Guid>(expression, Guid.NewGuid());
 
         private static TModel Bind<TModel, TProperty>(this TModel model, Expression<Func<TModel, TProperty>> expression,
