@@ -11,5 +11,7 @@ namespace MyShop.Core.Types
         {
             Items = Enumerable.Empty<T>();
         }
+
+        public static PagedResult<T> Empty => new PagedResult<T>();
     }
 }            
