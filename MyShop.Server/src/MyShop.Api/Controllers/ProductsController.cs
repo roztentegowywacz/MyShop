@@ -17,12 +17,20 @@ namespace MyShop.Api.Controllers
         {
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Get([FromQuery] BrowseProducts query)
+        {
+            var products = await _dispatcher.QueryAsync(query);
+
+            return Collection(products);
+        }
+
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<ProductDto>> Get([FromRoute] GetProduct query)
         {
-            var productDto = await _dispatcher.QueryAsync(query);
+            var product = await _dispatcher.QueryAsync(query);
             
-            return Single(productDto);
+            return Single(product);
         }
 
         [HttpPost]
