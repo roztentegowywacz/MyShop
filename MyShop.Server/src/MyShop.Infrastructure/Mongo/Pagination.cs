@@ -10,7 +10,7 @@ namespace MyShop.Infrastructure.Mongo
     {
         // TODO: null check!!
 
-        public static async Task<PagedResult<T>> PaginateAsync<T>(this IMongoQueryable<Task> collection,
+        public static async Task<PagedResult<T>> PaginateAsync<T>(this IMongoQueryable<T> collection,
             PagedQueryBase query)
         {
             var isEmpty = await collection.AnyAsync() == false;
@@ -22,6 +22,8 @@ namespace MyShop.Infrastructure.Mongo
             var totalResults = await collection.CountAsync();
             var totalPages = (int)(totalResults / query.ResultsPerPage) + 1;
             var data = await collection.Limit(query).ToListAsync();
+
+            return PagedResult<T>.Create(data, query.Page, query.ResultsPerPage, totalPages, totalResults);
         }
 
         private static IMongoQueryable<T> Limit<T>(this IMongoQueryable<T> collection, PagedQueryBase query)

@@ -28,8 +28,6 @@ namespace MyShop.Infrastructure.Mongo
 
         public async Task<PagedResult<TEntity>> BrowseAsync<TQuery>(Expression<Func<TEntity, bool>> predicate,
             TQuery query) where TQuery : PagedQueryBase
-        {
-            var a = Collection.AsQueryable().Where(predicate);
-        }
-    }
+            => await Collection.AsQueryable().Where(predicate).PaginateAsync(query);    }
+         
 }
