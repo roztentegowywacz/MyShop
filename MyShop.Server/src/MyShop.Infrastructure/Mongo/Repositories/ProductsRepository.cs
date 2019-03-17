@@ -21,6 +21,9 @@ namespace MyShop.Infrastructure.Mongo.Repositories
         public async Task<Product> GetAsync(Guid id)
             => await _repository.GetAsync(id);
 
-        public async Task<PagedResult<Product>> BrowseAsync(BrowseProducts query)
+        public async Task<PagedResults<Product>> BrowseAsync(IPagedFilterQuery<decimal> query)
+            => await _repository.BrowseAsync(
+                                    p => p.Price >= query.ValueFrom && p.Price <= query.ValueTo, 
+                                    query);
     }
 }

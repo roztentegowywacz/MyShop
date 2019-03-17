@@ -1,8 +1,8 @@
 using System;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using MongoDB.Driver;
+using MongoDB.Driver.Linq;
 using MyShop.Core.Domain;
 using MyShop.Core.Types;
 
@@ -26,8 +26,9 @@ namespace MyShop.Infrastructure.Mongo
         public async Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> predicate)
             => await Collection.Find(predicate).SingleOrDefaultAsync();
 
-        public async Task<PagedResult<TEntity>> BrowseAsync<TQuery>(Expression<Func<TEntity, bool>> predicate,
-            TQuery query) where TQuery : PagedQueryBase
-            => await Collection.AsQueryable().Where(predicate).PaginateAsync(query);    }
+        public async Task<PagedResults<TEntity>> BrowseAsync<TQuery>(Expression<Func<TEntity, bool>> predicate,
+            TQuery query) where TQuery : IPagedQuery
+            => await Collection.AsQueryable().Where(predicate).PaginateAsync(query);    
+    }
          
 }

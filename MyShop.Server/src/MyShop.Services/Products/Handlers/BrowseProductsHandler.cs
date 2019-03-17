@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading.Tasks;
 using MyShop.Core.Domain.Products.Repositories;
 using MyShop.Core.Types;
@@ -6,7 +7,7 @@ using MyShop.Services.Products.Queries;
 
 namespace MyShop.Services.Products.Handlers
 {
-    public class BrowseProductsHandler : IQueryHandler<BrowseProducts, PagedResult<ProductDto>>
+    public class BrowseProductsHandler : IQueryHandler<BrowseProducts, PagedResults<ProductDto>>
     {
         private readonly IProductsRepository _productsRepository;
 
@@ -15,9 +16,20 @@ namespace MyShop.Services.Products.Handlers
             _productsRepository = productsRepository;
         }
 
-        public Task<PagedResult<ProductDto>> HandleAsync(BrowseProducts query)
+        public async Task<PagedResults<ProductDto>> HandleAsync(BrowseProducts query)
         {
-            var pagedResult = await _productsRepository
+            var pagedResult = await _productsRepository.BrowseAsync(query);
+            var products = pagedResult.Items.Select(p => new ProductDto()
+            {
+                Id = p.Id,
+                Name = p.Name,
+                Description = p.Description,
+                Vendor = p.Vendor,
+                Price = p.Price,
+                Quantity = p.Quantity
+            }).ToList();
+
+            return PagedResults<ProductDto>.From(pagedResult, products);
         }
     }
 }

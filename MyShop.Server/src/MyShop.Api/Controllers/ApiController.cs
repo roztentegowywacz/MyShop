@@ -1,5 +1,6 @@
 using System;
 using Microsoft.AspNetCore.Mvc;
+using MyShop.Core.Types;
 using MyShop.Services.Dispatchers;
 
 namespace MyShop.Api.Controllers
@@ -31,4 +32,14 @@ namespace MyShop.Api.Controllers
             return NotFound();
         }
 
-        protected ActionResult Collection<T>()
+        protected ActionResult Collection<T>(PagedResults<T> pagedResults)
+        {
+            if (pagedResults is null)
+            {
+                return NotFound();
+            }
+
+            return Ok(pagedResults);
+        }
+    }
+}

@@ -1,7 +1,8 @@
 @url = https://localhost:5001
 
-### Create new product
-POST {{url}}/products HTTP/1.1
+
+### CREATE new product
+POST {{url}}/products
 Content-Type: application/json
 
 {
@@ -11,3 +12,8 @@ Content-Type: application/json
     "price": 1,
     "quantity": 1
 }
+
+
+### BROWSE products
+GET {{url}}/products?Page=1&ResultsPerPage=5&PriceFrom=0
+

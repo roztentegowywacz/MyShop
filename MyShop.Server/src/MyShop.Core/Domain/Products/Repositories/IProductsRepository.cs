@@ -8,6 +8,6 @@ namespace MyShop.Core.Domain.Products.Repositories
     {
         Task AddAsync(Product product);
         Task<Product> GetAsync(Guid id);
-        Task<PagedResult<Product>> BrowseAsync(PagedQueryBase query);
+        Task<PagedResults<Product>> BrowseAsync(IPagedFilterQuery<decimal> query);
     }
 }

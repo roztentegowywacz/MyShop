@@ -6,7 +6,5 @@ namespace MyShop.Core.Types
         int ResultsPerPage { get; }
         string OrderBy { get; }
         string SortOrder { get; }
-        object ValueFrom { get; }
-        object ValueTo { get; }
     }
 }
