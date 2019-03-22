@@ -6,13 +6,13 @@ namespace MyShop.Services.Products.Commands
 {
     public class DeleteProduct : ICommand, IIdentifiable
     {
-        public Guid Id { get; set;}
+        public Guid Id { get; }
 
 
-        // [JsonConstructor]
-        // public DeleteProduct(Guid id)
-        // {
-        //     Id = id;
-        // }
+        [JsonConstructor]
+        public DeleteProduct(Guid id)
+        {
+            Id = id;
+        }
     }
 }

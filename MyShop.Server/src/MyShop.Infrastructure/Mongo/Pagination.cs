@@ -8,11 +8,17 @@ namespace MyShop.Infrastructure.Mongo
 {
     public static class Pagination
     {
-        // TODO: null check!!
-
+        // TODO: Add Order By and Sort Order
         public static async Task<PagedResults<TEntity>> PaginateAsync<TEntity, TQuery>(this IMongoQueryable<TEntity> collection,
-            TQuery query) where TQuery : IPagedQuery
+            TQuery query) where TQuery : IPagedQuery 
+            => await collection.PaginateAsync<TEntity, TQuery>(query.Page, query.ResultsPerPage);
+
+        private static async Task<PagedResults<TEntity>> PaginateAsync<TEntity, TQuery>(this IMongoQueryable<TEntity> collection,
+            int page, int resultsPerPage)
         {
+            page = page <= 0 ? 1 : page;
+            resultsPerPage = resultsPerPage <= 0 ? 10 : resultsPerPage; 
+
             var isEmpty = await collection.AnyAsync() == false;
             if (isEmpty)
             {
@@ -21,19 +27,12 @@ namespace MyShop.Infrastructure.Mongo
 
 
             var totalResults = await collection.CountAsync();
-            var totalPages = (int)(totalResults / query.ResultsPerPage) + 1;           
-            var data = await collection.Limit(query).ToListAsync();
+            var totalPages = (int)(totalResults / resultsPerPage) + 1;  
 
-            return PagedResults<TEntity>.Create(data, query.Page, query.ResultsPerPage, totalPages, totalResults);
-        }
+            var skip = (page - 1) * resultsPerPage;
+            var data = await collection.Skip(skip).Take(resultsPerPage).ToListAsync();
 
-        private static IMongoQueryable<TEntity> Limit<TEntity, TQuery>(this IMongoQueryable<TEntity> collection, 
-            TQuery query) where TQuery : IPagedQuery
-        {
-            var skip = (query.Page - 1) * query.ResultsPerPage;
-            var data = collection.Skip(skip).Take(query.ResultsPerPage);
-
-            return data;
-        }        
+            return PagedResults<TEntity>.Create(data, page, resultsPerPage, totalPages, totalResults);
+        }     
     }
 }

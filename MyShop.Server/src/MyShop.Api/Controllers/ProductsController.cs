@@ -42,10 +42,9 @@ namespace MyShop.Api.Controllers
         }
 
         [HttpDelete("{id:guid}")]
-        public async Task<IActionResult> Delete([FromRoute] DeleteProduct command)
-        // public async Task<IActionResult> Delete([FromRoute] Guid id)
+        public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
-            await _dispatcher.SendAsync(command);
+            await _dispatcher.SendAsync(new DeleteProduct(id));
 
             return NoContent();
         }

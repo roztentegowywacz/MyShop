@@ -14,7 +14,7 @@ Content-Type: application/json
 }
 
 ### BROWSE products
-GET {{url}}/products?Page=2&ResultsPerPage=2&PriceFrom=0
+GET {{url}}/products
 
 ### DELETE product
 DELETE {{url}}/products/d9910038-80e4-4e03-bc22-5fd98ae674e1
