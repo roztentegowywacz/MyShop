@@ -25,21 +25,21 @@ namespace MyShop.Api.Controllers
             return CreatedAtAction(nameof(Get), new GetProduct(){ Id = command.Id }, null);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Get([FromQuery] BrowseProducts query)
-        {
-            var products = await _dispatcher.QueryAsync(query);
-
-            return Collection(products);
-        }
-
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<ProductDto>> Get([FromRoute] GetProduct query)
         {
             var product = await _dispatcher.QueryAsync(query);
             
             return Single(product);
-        }        
+        } 
+
+        [HttpGet]
+        public async Task<IActionResult> Get([FromQuery] BrowseProducts query)
+        {
+            var products = await _dispatcher.QueryAsync(query);
+
+            return Collection(products);
+        }     
 
         [HttpDelete("{id:guid}")]
         public async Task<IActionResult> Delete([FromRoute] Guid id)
