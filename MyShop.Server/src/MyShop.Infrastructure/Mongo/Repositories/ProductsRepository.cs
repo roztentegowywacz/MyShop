@@ -29,6 +29,9 @@ namespace MyShop.Infrastructure.Mongo.Repositories
         public async Task<bool> ExistsAsync(Guid id)
             => await _repository.ExistsAsync(p => p.Id == id);
 
+        public async Task UpdateAsync(Product product)
+            => await _repository.UpdateAsync(product);
+
         public async Task DeleteAsync(Guid id)
             => await _repository.DeleteAsync(id);
     }

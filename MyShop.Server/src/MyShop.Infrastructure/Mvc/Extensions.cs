@@ -33,7 +33,7 @@ namespace MyShop.Infrastructure.Mvc
         public static T BindId<T>(this T model, Expression<Func<T, Guid>> expression) where T : IIdentifiable
             => model.Bind<T, Guid>(expression, Guid.NewGuid());
 
-        private static TModel Bind<TModel, TProperty>(this TModel model, Expression<Func<TModel, TProperty>> expression,
+        public static TModel Bind<TModel, TProperty>(this TModel model, Expression<Func<TModel, TProperty>> expression,
             object value)
         {
             var memberExpression = expression.Body as MemberExpression;

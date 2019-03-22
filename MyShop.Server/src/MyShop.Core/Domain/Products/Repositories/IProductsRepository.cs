@@ -10,6 +10,7 @@ namespace MyShop.Core.Domain.Products.Repositories
         Task<Product> GetAsync(Guid id);
         Task<PagedResults<Product>> BrowseAsync(IPagedFilterQuery<decimal> query);
         Task<bool> ExistsAsync(Guid id);
+        Task UpdateAsync(Product product);
         Task DeleteAsync(Guid id);
     }
 }

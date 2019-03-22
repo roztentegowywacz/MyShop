@@ -39,7 +39,15 @@ namespace MyShop.Api.Controllers
             var products = await _dispatcher.QueryAsync(query);
 
             return Collection(products);
-        }     
+        }    
+
+        [HttpPut("{id:guid}")]
+        public async Task<IActionResult> Put(Guid id, UpdateProduct command)
+        {
+            await _dispatcher.SendAsync(command.Bind(c => c.Id, id));
+
+            return CreatedAtAction(nameof(Get), new GetProduct(){ Id = id }, null);
+        }
 
         [HttpDelete("{id:guid}")]
         public async Task<IActionResult> Delete([FromRoute] Guid id)
