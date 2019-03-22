@@ -25,5 +25,11 @@ namespace MyShop.Infrastructure.Mongo.Repositories
             => await _repository.BrowseAsync(
                                     p => p.Price >= query.ValueFrom && p.Price <= query.ValueTo, 
                                     query);
+
+        public async Task<bool> ExistsAsync(Guid id)
+            => await _repository.ExistsAsync(p => p.Id == id);
+
+        public async Task DeleteAsync(Guid id)
+            => await _repository.DeleteAsync(id);
     }
 }

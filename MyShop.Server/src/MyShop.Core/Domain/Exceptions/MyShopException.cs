@@ -1,6 +1,6 @@
 using System;
 
-namespace MyShop.Core.Domain
+namespace MyShop.Core.Domain.Exceptions
 {
     public class MyShopException : Exception
     {

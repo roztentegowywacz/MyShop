@@ -3,6 +3,7 @@ using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using MyShop.Core.Domain;
+using MyShop.Core.Domain.Exceptions;
 using Newtonsoft.Json;
 
 namespace MyShop.Infrastructure.Mvc
@@ -40,6 +41,12 @@ namespace MyShop.Infrastructure.Mvc
                     errorCode = e.Code;
                     message = e.Message;
                     statusCode = HttpStatusCode.BadRequest;
+                    break;
+                
+                case NotFoundException e:
+                    errorCode = e.Code;
+                    message = e.Message;
+                    statusCode = HttpStatusCode.NotFound;
                     break;
             }
 

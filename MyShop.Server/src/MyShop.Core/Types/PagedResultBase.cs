@@ -14,7 +14,7 @@ namespace MyShop.Core.Types
         protected PagedResultBase(int currentPage,
             int resultsPerPage, int totalPages, int totalResults)
         {
-            CurrentPage = currentPage > totalPages ? totalPages : currentPage;
+            CurrentPage = currentPage;
             ResultsPerPage = resultsPerPage;
             TotalPages = totalPages;
             TotalResults = totalResults;    

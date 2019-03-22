@@ -19,8 +19,9 @@ namespace MyShop.Infrastructure.Mongo
                 return PagedResults<TEntity>.Empty;
             }
 
+
             var totalResults = await collection.CountAsync();
-            var totalPages = (int)(totalResults / query.ResultsPerPage) + 1;
+            var totalPages = (int)(totalResults / query.ResultsPerPage) + 1;           
             var data = await collection.Limit(query).ToListAsync();
 
             return PagedResults<TEntity>.Create(data, query.Page, query.ResultsPerPage, totalPages, totalResults);

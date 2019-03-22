@@ -28,7 +28,13 @@ namespace MyShop.Infrastructure.Mongo
 
         public async Task<PagedResults<TEntity>> BrowseAsync<TQuery>(Expression<Func<TEntity, bool>> predicate,
             TQuery query) where TQuery : IPagedQuery
-            => await Collection.AsQueryable().Where(predicate).PaginateAsync(query);    
+            => await Collection.AsQueryable().Where(predicate).PaginateAsync(query); 
+
+        public async Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> predicate)
+            => await Collection.Find(predicate).AnyAsync();
+
+        public async Task DeleteAsync(Guid id)
+            => await Collection.DeleteOneAsync(e => e.Id == id);
     }
          
 }

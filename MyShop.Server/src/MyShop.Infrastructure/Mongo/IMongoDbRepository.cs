@@ -13,5 +13,7 @@ namespace MyShop.Infrastructure.Mongo
         Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> predicate);
         Task<PagedResults<TEntity>> BrowseAsync<TQuery>(Expression<Func<TEntity, bool>> predicate,
             TQuery query) where TQuery : IPagedQuery;
+        Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> predicate);
+        Task DeleteAsync(Guid id);
     }
 }
