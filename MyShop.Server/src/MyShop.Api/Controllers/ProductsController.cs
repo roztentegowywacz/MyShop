@@ -17,6 +17,14 @@ namespace MyShop.Api.Controllers
         {
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Post(CreateProduct command)
+        {
+            await _dispatcher.SendAsync(command.BindId(c => c.Id));
+
+            return CreatedAtAction(nameof(Get), new GetProduct(){ Id = command.Id }, null);
+        }
+
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery] BrowseProducts query)
         {
@@ -31,15 +39,7 @@ namespace MyShop.Api.Controllers
             var product = await _dispatcher.QueryAsync(query);
             
             return Single(product);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Post(CreateProduct command)
-        {
-            await _dispatcher.SendAsync(command.BindId(c => c.Id));
-
-            return CreatedAtAction(nameof(Get), new GetProduct(){ Id = command.Id }, null);
-        }
+        }        
 
         [HttpDelete("{id:guid}")]
         public async Task<IActionResult> Delete([FromRoute] Guid id)
