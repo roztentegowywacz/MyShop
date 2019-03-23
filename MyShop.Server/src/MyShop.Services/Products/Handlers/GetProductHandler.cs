@@ -30,7 +30,8 @@ namespace MyShop.Services.Products.Handlers
                 Name = product.Name,
                 Description = product.Description,
                 Vendor = product.Vendor,
-                Price = product.Price
+                Price = product.Price,
+                Quantity = product.Quantity
             };
         }
     }

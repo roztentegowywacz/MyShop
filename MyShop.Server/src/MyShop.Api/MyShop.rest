@@ -6,19 +6,33 @@ POST {{url}}/products
 Content-Type: application/json
 
 {
-    "name": "super produkt",
+    "name": "Bson",
     "description": "desc",
     "vendor": "vendor",
     "price": 1,
     "quantity": 1
 }
 
-### GET product with specific id
-GET {{url}}/products/10f95ba4-dcbf-416b-bf0f-5fe252ed1cca
-
 ### BROWSE products
 GET {{url}}/products/
 
-### DELETE product
-DELETE {{url}}/products/d9910038-80e4-4e03-bc22-5fd98ae674e1
+@productId = d92c3532-d103-4666-9cfb-f05416063ea1
 
+### GET product with specific id
+GET {{url}}/products/{{productId}}
+
+
+### UPDATE product with specific id
+PUT {{url}}/products/{{productId}}
+Content-Type: application/json
+
+{
+    "name": "Nowa nazwa",
+    "description": "desc",
+    "vendor": "vendor",
+    "price": 1,
+    "quantity": 1
+}
+
+### DELETE product
+DELETE {{url}}/products/{{productId}}
