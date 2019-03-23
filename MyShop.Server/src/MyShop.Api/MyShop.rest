@@ -27,11 +27,7 @@ PUT {{url}}/products/{{productId}}
 Content-Type: application/json
 
 {
-    "name": "Nowa nazwa",
-    "description": "desc",
-    "vendor": "vendor",
-    "price": 1,
-    "quantity": 1
+    "name": "Nowa nazwa"
 }
 
 ### DELETE product
