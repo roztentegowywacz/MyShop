@@ -2,14 +2,15 @@ using System;
 using System.Threading.Tasks;
 using MyShop.Core.Domain.Products;
 using MyShop.Core.Domain.Products.Repositories;
+using MyShop.Core.Types;
 
 namespace MyShop.Infrastructure.Mongo.Repositories
 {
     public class ProductsRepository : IProductsRepository
     {
-        private readonly IMongoRepository<Product> _repository;
+        private readonly IMongoDbRepository<Product> _repository;
 
-        public ProductsRepository(IMongoRepository<Product> repository)
+        public ProductsRepository(IMongoDbRepository<Product> repository)
         {
             _repository = repository;
         }
@@ -19,5 +20,19 @@ namespace MyShop.Infrastructure.Mongo.Repositories
 
         public async Task<Product> GetAsync(Guid id)
             => await _repository.GetAsync(id);
+
+        public async Task<PagedResults<Product>> BrowseAsync(IPagedFilterQuery<decimal> query)
+            => await _repository.BrowseAsync(
+                                    p => p.Price >= query.ValueFrom && p.Price <= query.ValueTo, 
+                                    query);
+
+        public async Task<bool> ExistsAsync(Guid id)
+            => await _repository.ExistsAsync(p => p.Id == id);
+
+        public async Task UpdateAsync(Product product)
+            => await _repository.UpdateAsync(product);
+
+        public async Task DeleteAsync(Guid id)
+            => await _repository.DeleteAsync(id);
     }
 }

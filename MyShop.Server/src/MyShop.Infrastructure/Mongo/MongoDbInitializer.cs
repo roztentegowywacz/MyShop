@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Conventions;
@@ -8,24 +7,9 @@ using MongoDB.Bson.Serialization.Serializers;
 
 namespace MyShop.Infrastructure.Mongo
 {
-    public class MongoDbInitializer : IMongoDbInitializer
+    public class MongoDbInitializer
     {
-        private bool _initialized;
-
-        public async Task InitializeAsync()
-        {
-            if (_initialized)
-            {
-                return;
-            }
-
-            RegisterConventions();
-            _initialized = true;
-             
-            await Task.CompletedTask;
-        }
-
-        private void RegisterConventions()
+        public static void RegisterConventions()
         {
             BsonSerializer.RegisterSerializer(typeof(decimal), new DecimalSerializer(BsonType.Decimal128));
             BsonSerializer.RegisterSerializer(typeof(decimal?), new NullableSerializer<decimal>(new DecimalSerializer(BsonType.Decimal128)));

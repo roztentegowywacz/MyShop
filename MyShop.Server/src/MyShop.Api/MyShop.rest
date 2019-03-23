@@ -1,0 +1,38 @@
+@url = https://localhost:5001
+
+
+### CREATE new product
+POST {{url}}/products
+Content-Type: application/json
+
+{
+    "name": "Bson",
+    "description": "desc",
+    "vendor": "vendor",
+    "price": 1,
+    "quantity": 1
+}
+
+### BROWSE products
+GET {{url}}/products/
+
+@productId = d92c3532-d103-4666-9cfb-f05416063ea1
+
+### GET product with specific id
+GET {{url}}/products/{{productId}}
+
+
+### UPDATE product with specific id
+PUT {{url}}/products/{{productId}}
+Content-Type: application/json
+
+{
+    "name": "Nowa nazwa",
+    "description": "desc",
+    "vendor": "vendor",
+    "price": 1,
+    "quantity": 1
+}
+
+### DELETE product
+DELETE {{url}}/products/{{productId}}

@@ -1,12 +1,13 @@
 using System;
 using Microsoft.AspNetCore.Mvc;
+using MyShop.Core.Types;
 using MyShop.Services.Dispatchers;
 
 namespace MyShop.Api.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class ApiController : ControllerBase
+    public abstract class ApiController : ControllerBase
     {
         protected readonly IDispatcher _dispatcher;
 
@@ -29,6 +30,16 @@ namespace MyShop.Api.Controllers
             }
 
             return NotFound();
+        }
+
+        protected ActionResult Collection<T>(PagedResults<T> pagedResults)
+        {
+            if (pagedResults is null)
+            {
+                return NotFound();
+            }
+
+            return Ok(pagedResults);
         }
     }
 }

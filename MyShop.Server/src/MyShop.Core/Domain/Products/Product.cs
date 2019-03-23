@@ -1,4 +1,5 @@
 using System;
+using MyShop.Core.Domain.Exceptions;
 
 namespace MyShop.Core.Domain.Products
 {
@@ -11,7 +12,7 @@ namespace MyShop.Core.Domain.Products
         public int Quantity { get; private set; }
 
         public Product(Guid id, string name, string description, string vendor,
-            decimal price, int quantity)
+            decimal price, int quantity) : base(id)
         {
             SetName(name);
             SetVendor(vendor);
