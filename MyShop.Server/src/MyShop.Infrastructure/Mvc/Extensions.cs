@@ -16,7 +16,8 @@ namespace MyShop.Infrastructure.Mvc
             => services
                 .AddMvcCore()
                 .AddJsonFormatters()
-                .AddDefaultJsonOptions();
+                .AddDefaultJsonOptions()
+                .AddAuthorization();
 
         public static IMvcCoreBuilder AddDefaultJsonOptions(this IMvcCoreBuilder builder)
             => builder.AddJsonOptions(o =>

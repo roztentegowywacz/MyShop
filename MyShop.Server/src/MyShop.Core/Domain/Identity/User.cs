@@ -1,5 +1,6 @@
 using System;
 using System.Text.RegularExpressions;
+using Microsoft.AspNetCore.Identity;
 using MyShop.Core.Domain.Exceptions;
 
 namespace MyShop.Core.Domain.Identity
@@ -38,8 +39,25 @@ namespace MyShop.Core.Domain.Identity
 
         public void SetRole(string role)
         {
+            if (!Identity.Role.IsValid(role))
+            {
+                throw new MyShopException("invalid_role",
+                    $"Invalid role: '{role}'.");
+            }
+
             Role = role.Trim().ToLowerInvariant();
             SetUpdatedDate();
+        }
+
+        public void SetPassword(string password, IPasswordHasher<User> passwordHasher)
+        {
+            if (string.IsNullOrWhiteSpace(password))
+            {
+                throw new MyShopException("invalid_password",
+                    "Password can not be empty.");
+            }
+
+            PasswordHash = passwordHasher.HashPassword(this, password);
         }
     }
 }

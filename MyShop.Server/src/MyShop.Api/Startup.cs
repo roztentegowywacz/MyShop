@@ -58,6 +58,7 @@ namespace MyShop.Api
 
             app.UseHttpsRedirection();
             app.UseMiddleware(typeof(ErrorHandlerMiddleware));
+            app.UseAuthentication();
             app.UseMvc();
 
             applicationLifetime.ApplicationStopped.Register(() =>
