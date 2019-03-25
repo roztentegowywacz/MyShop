@@ -17,7 +17,7 @@ namespace MyShop.Api.Controllers
         {
             await _dispatcher.SendAsync(command.BindId(c => c.Id));    
 
-            return Ok();     
+            return Ok();
         }
     }
 }

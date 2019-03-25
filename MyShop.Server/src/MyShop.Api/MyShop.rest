@@ -36,3 +36,13 @@ Content-Type: application/json
 
 ### DELETE product
 DELETE {{url}}/products/{{productId}}
+
+
+### SIGN UP
+POST {{url}}/identity/sign-up
+Content-Type: application/json
+
+{
+    "email": "tomek.klag@gmail.com",
+    "password": "secret"
+}
