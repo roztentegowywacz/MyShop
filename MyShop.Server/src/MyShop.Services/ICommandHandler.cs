@@ -4,6 +4,6 @@ namespace MyShop.Services
 {
     public interface ICommandHandler<in T> where T : ICommand
     {
-        Task HandleAsync(T command);       
+        Task HandleAsync(T command);
     }
 }

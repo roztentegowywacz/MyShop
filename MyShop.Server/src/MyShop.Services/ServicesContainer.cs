@@ -10,6 +10,7 @@ namespace MyShop.Services
         public static void Load(ContainerBuilder builder)
         {
             var servicesAssebly = Assembly.GetExecutingAssembly();
+            
             builder.RegisterAssemblyTypes(servicesAssebly)
                 .AsImplementedInterfaces()
                 .InstancePerLifetimeScope();

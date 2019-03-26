@@ -19,5 +19,13 @@ namespace MyShop.Api.Controllers
 
             return Ok();
         }
+
+        [HttpPost("sign-in")]
+        public async Task<IActionResult> SignIn(SignIn command)
+        {
+            var jwt = await _dispatcher.SendAsync(command);
+
+            return Ok(jwt);
+        }
     }
 }
