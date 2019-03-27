@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using MyShop.Services.Dispatchers;
 using MyShop.Services.Identity.Commands;
 using MyShop.Infrastructure.Mvc;
+using MyShop.Services.Identity.Handlers;
+using Microsoft.IdentityModel.JsonWebTokens;
 
 namespace MyShop.Api.Controllers
 {
@@ -21,9 +23,9 @@ namespace MyShop.Api.Controllers
         }
 
         [HttpPost("sign-in")]
-        public async Task<IActionResult> SignIn(SignIn command)
+        public async Task<ActionResult<JsonWebToken>> SignIn(SignIn command)
         {
-            var jwt = await _dispatcher.SendAsync(command);
+            var jwt = await _dispatcher.SendAsync<SignIn, JsonWebToken>(command);
 
             return Ok(jwt);
         }

@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Autofac;
 
@@ -18,6 +19,12 @@ namespace MyShop.Services.Dispatchers
                 .MakeGenericType(query.GetType(), typeof(TResult));
 
             dynamic handler = _componentContext.Resolve(handlerType);
+
+            if (handler is null)
+            {
+                throw new ArgumentException($"Query handler: '{handlerType.Name} was not found.'",
+                    nameof(handler));
+            }
 
             return await handler.HandleAsync((dynamic)query);
         }

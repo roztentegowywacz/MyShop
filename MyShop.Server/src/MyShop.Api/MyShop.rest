@@ -6,7 +6,7 @@ POST {{url}}/products
 Content-Type: application/json
 
 {
-    "name": "Bson",
+    "name": "very new product",
     "description": "desc",
     "vendor": "vendor",
     "price": 1,
@@ -40,6 +40,15 @@ DELETE {{url}}/products/{{productId}}
 
 ### SIGN UP
 POST {{url}}/identity/sign-up
+Content-Type: application/json
+
+{
+    "email": "tomek.klag@gmail.com",
+    "password": "secret"
+}
+
+### SIGN IN
+POST {{url}}/identity/sign-in
 Content-Type: application/json
 
 {
