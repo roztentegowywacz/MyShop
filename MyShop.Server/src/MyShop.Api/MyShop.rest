@@ -43,7 +43,7 @@ POST {{url}}/identity/sign-up
 Content-Type: application/json
 
 {
-    "email": "tomek.klag@gmail.com",
+    "email": "2tomek.klag@gmail.com",
     "password": "secret"
 }
 

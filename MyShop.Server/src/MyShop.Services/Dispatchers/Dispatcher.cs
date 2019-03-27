@@ -22,14 +22,7 @@ namespace MyShop.Services.Dispatchers
         public async Task SendAsync<TCommand>(TCommand command) where TCommand : ICommand
             => await _commandDispatcher.SendAsync(command);
 
-        // public async Task<TResult> aSendAsync<TResult>(ICommand<TResult> command)
-        //     => await _commandDispatcher.SendAsync<TResult>(command);
-
-
-        // public async Task<TResult> SendAsync<TResult>(ICommand<TResult> command)
-        //     => await _commandDispatcher.SendAsync<TResult>(command);
-
-        public async Task<TResult> SendAsync<TCommand, TResult>(TCommand command) where TCommand : ICommand<TResult>
-            => await _commandDispatcher.SendAsync<TCommand, TResult>(command);
+        public async Task<TResult> SendAndResponseDataAsync<TResult>(ICommand<TResult> command)
+            => await _commandDispatcher.SendAsync<TResult>(command);
     }
 }

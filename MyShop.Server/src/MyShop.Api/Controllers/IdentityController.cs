@@ -25,7 +25,7 @@ namespace MyShop.Api.Controllers
         [HttpPost("sign-in")]
         public async Task<ActionResult<JsonWebToken>> SignIn(SignIn command)
         {
-            var jwt = await _dispatcher.SendAsync<SignIn, JsonWebToken>(command);
+            var jwt = await _dispatcher.SendAndResponseDataAsync(command);
 
             return Ok(jwt);
         }

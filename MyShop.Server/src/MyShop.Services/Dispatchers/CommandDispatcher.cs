@@ -29,34 +29,14 @@ namespace MyShop.Services.Dispatchers
         }
 
         // TODO: Add nullcheck if command not found
-        // public async Task<TResult> SendAsync<TResult>(ICommand<TResult> command)
-        // {
-        //     var handlerType = typeof(ICommandHandler<,>)
-        //         .MakeGenericType(command.GetType(), typeof(TResult));
-            
-        //     dynamic handler = _componentContext.Resolve(handlerType);
-
-        //     return await handler.HandleAsync((dynamic)command);
-        // }
-
-        public async Task<TResult> SendAsync<TCommand, TResult>(TCommand command) where TCommand : ICommand<TResult>
+        public async Task<TResult> SendAndResponseDataAsync<TResult>(ICommand<TResult> command)
         {
             var handlerType = typeof(ICommandHandler<,>)
-                .MakeGenericType(typeof(TCommand), typeof(TResult));
+                .MakeGenericType(command.GetType(), typeof(TResult));
             
             dynamic handler = _componentContext.Resolve(handlerType);
 
             return await handler.HandleAsync((dynamic)command);
         }
-
-        // public async Task<TResult> SendAsync<TResult>(ICommand<TResult> command)
-        // {
-        //     var handlerType = typeof(ICommandHandler<,>)
-        //         .MakeGenericType(command.GetType(), typeof(TResult));
-            
-        //     dynamic handler = _componentContext.Resolve(handlerType);
-
-        //     return await handler.HandleAsync((dynamic)command);
-        // }
     }
 }
