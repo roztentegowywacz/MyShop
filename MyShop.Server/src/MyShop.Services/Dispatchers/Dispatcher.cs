@@ -23,6 +23,6 @@ namespace MyShop.Services.Dispatchers
             => await _commandDispatcher.SendAsync(command);
 
         public async Task<TResult> SendAndResponseDataAsync<TResult>(ICommand<TResult> command)
-            => await _commandDispatcher.SendAsync<TResult>(command);
+            => await _commandDispatcher.SendAndResponseDataAsync<TResult>(command);
     }
 }
