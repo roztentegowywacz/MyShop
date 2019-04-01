@@ -1,6 +1,7 @@
 using System;
 using System.Text;
 using Autofac;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -33,14 +34,14 @@ namespace MyShop.Infrastructure.Authentication
                 });
         }
 
-        public static void AddJwt(this ContainerBuilder builder)
+        public static void RegisterJwtValidatorMiddleware(this ContainerBuilder builder)
         {
             // builder.Register(ctx => {
             //     var configuration = ctx.Resolve<IConfiguration>();
             //     var options = configuration.GetSection("jwt").Get<JwtOptions>();
             //     return options;
             // }).SingleInstance();
-            // builder.RegisterType<Type>.As
+            builder.RegisterType<JwtValidatorMiddleware>().InstancePerDependency();
         }
         
         public static long ToTimestamp(this DateTime dateTime)
@@ -50,5 +51,8 @@ namespace MyShop.Infrastructure.Authentication
 
             return expectedDate.Ticks / 10000;
         }
+
+        public static IApplicationBuilder UseJwtValidatorMiddleware(this IApplicationBuilder builder)
+            => builder.UseMiddleware<JwtValidatorMiddleware>();
     }
 }

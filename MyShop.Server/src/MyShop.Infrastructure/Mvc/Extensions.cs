@@ -2,6 +2,8 @@ using System;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using Autofac;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using MyShop.Core.Domain;
 using Newtonsoft.Json;
@@ -30,6 +32,14 @@ namespace MyShop.Infrastructure.Mvc
                 o.SerializerSettings.Formatting = Formatting.Indented;
                 o.SerializerSettings.Converters.Add(new StringEnumConverter());
             });
+
+        public static void RegisterErrorHandlerMiddleware(this ContainerBuilder builder)
+        {
+            builder.RegisterType<ErrorHandlerMiddleware>().InstancePerDependency();
+        }
+
+        public static IApplicationBuilder UseErrorHandler(this IApplicationBuilder builder)
+            => builder.UseMiddleware<ErrorHandlerMiddleware>();
 
         public static T BindId<T>(this T model, Expression<Func<T, Guid>> expression) where T : IIdentifiable
             => model.Bind<T, Guid>(expression, Guid.NewGuid());

@@ -60,8 +60,8 @@ namespace MyShop.Api
             }
 
             app.UseHttpsRedirection();
-            app.UseMiddleware<ErrorHandlerMiddleware>();
-            app.UseMiddleware<JwtValidatorMiddleware>();
+            app.UseErrorHandler();
+            app.UseJwtValidatorMiddleware();
             app.UseAuthentication();
             app.UseMvc();
 
