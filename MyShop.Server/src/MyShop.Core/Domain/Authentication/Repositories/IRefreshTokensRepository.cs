@@ -1,0 +1,9 @@
+using System.Threading.Tasks;
+
+namespace MyShop.Core.Domain.Authentication.Repositories
+{
+    public interface IRefreshTokensRepository
+    {
+        Task AddAsync(RefreshToken refreshToken);
+    }
+}

@@ -9,4 +9,8 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    
+  </ItemGroup>
+
 </Project>

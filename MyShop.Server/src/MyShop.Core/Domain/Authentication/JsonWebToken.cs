@@ -3,21 +3,19 @@ using System.Collections.Generic;
 
 namespace MyShop.Core.Domain.Authentication
 {
-    public class JsonWebToken : BaseEntity, IIdentifiable
+    public class JsonWebToken : BaseEntity
     {
         public string AccessToken { get; private set; }
         public string RefreshToken { get; private set; }
         public long Expires { get; private set; }
-        public IDictionary<string, string> Claims { get; private set; }
         
         // TODO: Add validation!
         public JsonWebToken(Guid id, string accessToken, string refreshToken,
-            long expires, IDictionary<string, string> claims) : base(id)
+            long expires) : base(id)
         {
             SetAccessToken(accessToken);
             SetRefreshToken(refreshToken);
             SetExpires(expires);
-            SetClaims(claims);
         }
 
         private void SetAccessToken(string accessToken)
@@ -26,7 +24,7 @@ namespace MyShop.Core.Domain.Authentication
             SetUpdatedDate();
         }
 
-        private void SetRefreshToken(string refreshToken)
+        public void SetRefreshToken(string refreshToken)
         {
             RefreshToken = refreshToken;
             SetUpdatedDate();
@@ -35,12 +33,6 @@ namespace MyShop.Core.Domain.Authentication
         private void SetExpires(long expires)
         {
             Expires = expires;
-            SetUpdatedDate();
-        }
-
-        private void SetClaims(IDictionary<string, string> claims)
-        {
-            Claims = claims;
             SetUpdatedDate();
         }
     }

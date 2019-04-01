@@ -2,6 +2,7 @@ using System.Reflection;
 using Autofac;
 using MyShop.Core.Domain.Identity;
 using MyShop.Core.Domain.Products;
+using MyShop.Infrastructure.Authentication;
 using MyShop.Infrastructure.Mongo;
 
 namespace MyShop.Infrastructure
@@ -15,6 +16,7 @@ namespace MyShop.Infrastructure
                 .AsImplementedInterfaces()
                 .InstancePerLifetimeScope();
             builder.AddMongoDB();
+            builder.AddJwt();
             builder.AddMongoDBRepository<Product>("Products");
             builder.AddMongoDBRepository<User>("Users");
         }

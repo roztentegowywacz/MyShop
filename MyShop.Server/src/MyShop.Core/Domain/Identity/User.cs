@@ -5,7 +5,7 @@ using MyShop.Core.Domain.Exceptions;
 
 namespace MyShop.Core.Domain.Identity
 {
-    public class User : BaseEntity, IIdentifiable
+    public class User : BaseEntity
     {
         private static readonly Regex EmailRegex = new Regex(
             @"^(?("")("".+?(?<!\\)""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))" +
@@ -18,7 +18,7 @@ namespace MyShop.Core.Domain.Identity
         public string PasswordHash { get; private set; }
      
      
-        public User(Guid id, string email, string role) : base(id)
+        public User(Guid id, string email, string role = Identity.Role.User) : base(id)
         {
             SetEmail(email);
             SetRole(role);
