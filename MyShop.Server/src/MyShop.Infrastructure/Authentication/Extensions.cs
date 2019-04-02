@@ -2,6 +2,7 @@ using System;
 using System.Text;
 using Autofac;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -17,8 +18,12 @@ namespace MyShop.Infrastructure.Authentication
             {
                 configuration = serviceProvider.GetService<IConfiguration>();
             }
+            var section = configuration.GetSection("jwt");
             var options = new JwtOptions();
             configuration.Bind("jwt", options);
+
+            services.Configure<JwtOptions>(section);
+            services.AddSingleton(options);
 
             services.AddAuthentication()
                 .AddJwtBearer(cfg => {
@@ -32,15 +37,12 @@ namespace MyShop.Infrastructure.Authentication
                             ValidateLifetime = options.ValidateLifetime
                     };
                 });
+            
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
 
         public static void RegisterJwtValidatorMiddleware(this ContainerBuilder builder)
         {
-            // builder.Register(ctx => {
-            //     var configuration = ctx.Resolve<IConfiguration>();
-            //     var options = configuration.GetSection("jwt").Get<JwtOptions>();
-            //     return options;
-            // }).SingleInstance();
             builder.RegisterType<JwtValidatorMiddleware>().InstancePerDependency();
         }
         

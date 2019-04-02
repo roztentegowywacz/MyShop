@@ -10,6 +10,7 @@ using MyShop.Infrastructure;
 using MyShop.Infrastructure.Authentication;
 using MyShop.Infrastructure.Mongo;
 using MyShop.Infrastructure.Mvc;
+using MyShop.Infrastructure.Redis;
 using MyShop.Services;
 
 namespace MyShop.Api
@@ -30,6 +31,7 @@ namespace MyShop.Api
         {
             services.AddCustomAuthentication();
             services.AddCustomMvc();
+            services.AddRedis();
 
             var builder = new ContainerBuilder();
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())

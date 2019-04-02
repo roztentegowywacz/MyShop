@@ -1,5 +1,6 @@
 using System.Reflection;
 using Autofac;
+using MyShop.Core.Domain.Authentication;
 using MyShop.Core.Domain.Identity;
 using MyShop.Core.Domain.Products;
 using MyShop.Infrastructure.Authentication;
@@ -21,6 +22,7 @@ namespace MyShop.Infrastructure
             builder.RegisterErrorHandlerMiddleware();
             builder.AddMongoDBRepository<Product>("Products");
             builder.AddMongoDBRepository<User>("Users");
+            builder.AddMongoDBRepository<RefreshToken>("RefreshTokens");
         }
     }
 }
