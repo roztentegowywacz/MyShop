@@ -5,6 +5,7 @@ using MyShop.Services.Identity.Commands;
 using MyShop.Infrastructure.Mvc;
 using MyShop.Services.Identity.Handlers;
 using Microsoft.IdentityModel.JsonWebTokens;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MyShop.Api.Controllers
 {
@@ -14,6 +15,7 @@ namespace MyShop.Api.Controllers
         {
         }
         
+        [AllowAnonymous]
         [HttpPost("sign-up")]
         public async Task<IActionResult> SignUp(SignUp command)
         {
@@ -22,6 +24,7 @@ namespace MyShop.Api.Controllers
             return Ok();
         }
 
+        [AllowAnonymous]
         [HttpPost("sign-in")]
         public async Task<ActionResult<JsonWebToken>> SignIn(SignIn command)
         {

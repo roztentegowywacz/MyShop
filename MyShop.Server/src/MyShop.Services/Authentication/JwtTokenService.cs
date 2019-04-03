@@ -26,9 +26,7 @@ namespace MyShop.Services.Authentication
         private readonly JwtOptions _options;
         private readonly SigningCredentials _signingCredentials;
 
-        public JwtTokenService(JwtOptions options,
-            IDistributedCache cache,
-            IHttpContextAccessor httpContextAccessor)
+        public JwtTokenService(JwtOptions options)
         {
             _options = options;
             var issuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_options.SecretKey));

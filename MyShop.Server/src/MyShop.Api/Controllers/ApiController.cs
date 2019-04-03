@@ -1,12 +1,14 @@
 using System;
 using Microsoft.AspNetCore.Mvc;
 using MyShop.Core.Types;
+using MyShop.Infrastructure.Authentication;
 using MyShop.Services.Dispatchers;
 
 namespace MyShop.Api.Controllers
 {
     [Route("[controller]")]
     [ApiController]
+    [JwtAuth]
     public abstract class ApiController : ControllerBase
     {
         protected readonly IDispatcher _dispatcher;
