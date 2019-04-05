@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using MyShop.Core.Domain.Identity;
 
@@ -6,6 +7,8 @@ namespace MyShop.Core.Domain.Authentication
 {
     public class RefreshToken : IIdentifiable
     {
+        private Task<User> user;
+        private IPasswordHasher<User> _passwordHasher;
 
         public Guid Id { get; private set; }
         public Guid UserId { get; private set; }
