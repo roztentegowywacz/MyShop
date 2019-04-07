@@ -5,7 +5,7 @@ using MyShop.Core.Domain.Authentication.Repositories;
 using MyShop.Core.Domain.Exceptions;
 using MyShop.Core.Domain.Identity;
 using MyShop.Core.Domain.Identity.Repositories;
-using MyShop.Services.Authentication;
+using MyShop.Services.Authentication.Services;
 using MyShop.Services.Identity.Commands;
 
 namespace MyShop.Services.Identity.Handlers

@@ -1,6 +1,6 @@
 @url = https://localhost:5001
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlZWVjZTM4ZjAzMWU0Y2ZjYTU2NjkzZWNiOWIzMjJjMiIsInVuaXF1ZV9uYW1lIjoiZWVlY2UzOGYwMzFlNGNmY2E1NjY5M2VjYjliMzIyYzIiLCJqdGkiOiI3ODEyNjNkMS0yOWFiLTRjZWQtYjFkNS04MDRlYTMxZGNlMDgiLCJpYXQiOiIxNTU0MzI0NDM1MjY2IiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoidXNlciIsIm5iZiI6MTU1NDMyNDQzNSwiZXhwIjoxNTU0MzI0NDk1LCJpc3MiOiJNeVNob3AifQ.r4a8v_1XkPwgXeD7eeJAUuB3pFIw-rRosdDTG8ynRM8
-
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmZDhiZmE1ZWI1MjY0Zjk1OGQ4MGRhYTBlODQzMmExNSIsInVuaXF1ZV9uYW1lIjoiZmQ4YmZhNWViNTI2NGY5NThkODBkYWEwZTg0MzJhMTUiLCJqdGkiOiIyYmUxMzY5ZS1lNDdjLTQ2YTktYmUxNC1jNGJkMTczZDY2MDYiLCJpYXQiOiIxNTU0NjY3OTIxMjAzIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoidXNlciIsIm5iZiI6MTU1NDY2NzkyMSwiZXhwIjoxNTU0NjY3OTgxLCJpc3MiOiJNeVNob3AifQ.75I60ZvHHtROL0jBGmnCKI1Egl6z0bas6-wfenNjUz4
+@refreshToken = AQAAAAEAACcQAAAAEG4cyi369kSpGEogMnwS/pv3TF3P3bWHZSadhkVazYJek477aP33TGqhiUM2tTsSDg==
 
 ### CREATE new product
 POST {{url}}/products
@@ -56,4 +56,12 @@ Content-Type: application/json
 {
     "email": "tomek.klag@gmail.com",
     "password": "secret"
+}
+
+### REFRESH TOKEN
+POST {{url}}/access-token/refresh
+Content-Type: application/json
+
+{
+    "token": "{{refreshToken}}"
 }

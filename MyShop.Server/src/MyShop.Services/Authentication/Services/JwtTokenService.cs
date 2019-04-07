@@ -10,7 +10,7 @@ using MyShop.Infrastructure.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Caching.Distributed;
 
-namespace MyShop.Services.Authentication
+namespace MyShop.Services.Authentication.Services
 {
     public class JwtTokenService : IJwtTokenService
     {

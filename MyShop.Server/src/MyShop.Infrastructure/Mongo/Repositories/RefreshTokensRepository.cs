@@ -15,5 +15,8 @@ namespace MyShop.Infrastructure.Mongo.Repositories
 
         public async Task AddAsync(RefreshToken refreshToken)
             => await _repository.AddAsync(refreshToken);
+
+        public async Task<RefreshToken> GetAsync(string token)
+            => await _repository.GetAsync(x => x.Token == token);
     }
 }

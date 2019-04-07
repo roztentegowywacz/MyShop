@@ -5,5 +5,6 @@ namespace MyShop.Core.Domain.Authentication.Repositories
     public interface IRefreshTokensRepository
     {
         Task AddAsync(RefreshToken refreshToken);
+        Task<RefreshToken> GetAsync(string token);
     }
 }
