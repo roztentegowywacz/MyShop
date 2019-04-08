@@ -7,14 +7,15 @@ using MyShop.Services.Dispatchers;
 
 namespace MyShop.Api.Controllers
 {
-    [Route("access-token")]
+    [Route("")]
     public class TokenController : ApiController
     {
         public TokenController(IDispatcher dispatcher) : base(dispatcher)
         {
         }
 
-        [HttpPost("/refresh")]
+        [Route("access-token/refresh")]
+        [HttpPost]
         [AllowAnonymous]
         public async Task<ActionResult<JsonWebToken>> RefreshAccessToken(RefreshAccessToken command)
         {
