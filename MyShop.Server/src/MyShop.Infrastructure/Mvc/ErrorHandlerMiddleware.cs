@@ -8,19 +8,13 @@ using Newtonsoft.Json;
 
 namespace MyShop.Infrastructure.Mvc
 {
-    public class ErrorHandlerMiddleware
+    public class ErrorHandlerMiddleware : IMiddleware
     {
-        private readonly RequestDelegate _next;
-        public ErrorHandlerMiddleware(RequestDelegate next)
-        {
-            _next = next;
-        }
-
-        public async Task Invoke(HttpContext context)
+        public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
             try
             {
-                await _next(context);
+                await next(context);
             }
             catch (Exception exception)
             {

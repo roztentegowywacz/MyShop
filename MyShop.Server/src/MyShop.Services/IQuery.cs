@@ -5,7 +5,7 @@ namespace MyShop.Services
     {
     }
 
-    public interface IQuery<T> : IQuery
+    public interface IQuery<TResult> : IQuery
     {
     }
 }

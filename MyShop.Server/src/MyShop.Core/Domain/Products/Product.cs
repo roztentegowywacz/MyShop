@@ -10,6 +10,7 @@ namespace MyShop.Core.Domain.Products
         public string Vendor { get; private set; }
         public decimal Price { get; private set; }
         public int Quantity { get; private set; }
+        
 
         public Product(Guid id, string name, string description, string vendor,
             decimal price, int quantity) : base(id)
@@ -20,6 +21,7 @@ namespace MyShop.Core.Domain.Products
             SetPrice(price);
             SetQuantity(quantity);
         }
+        
 
         public void SetName(string name)
         {

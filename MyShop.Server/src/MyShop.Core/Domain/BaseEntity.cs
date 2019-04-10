@@ -9,17 +9,17 @@ namespace MyShop.Core.Domain
         [BsonId]
         [BsonRepresentation(BsonType.String)]
         public Guid Id { get; protected set; }
-        public DateTime CreatedDate { get; protected set; }
-        public DateTime UpdatedDate { get; protected set; }
+        public DateTime CreatedAt { get; protected set; }
+        public DateTime UpdatedAt { get; protected set; }
 
         public BaseEntity(Guid id)
         {
             Id = id;
-            CreatedDate = DateTime.UtcNow;
+            CreatedAt = DateTime.UtcNow;
             SetUpdatedDate();
         }
 
         protected void SetUpdatedDate()
-            => UpdatedDate = DateTime.UtcNow;
+            => UpdatedAt = DateTime.UtcNow;
     }
 }

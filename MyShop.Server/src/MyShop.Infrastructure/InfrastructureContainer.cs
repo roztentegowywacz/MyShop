@@ -1,7 +1,11 @@
 using System.Reflection;
 using Autofac;
+using MyShop.Core.Domain.Authentication;
+using MyShop.Core.Domain.Identity;
 using MyShop.Core.Domain.Products;
+using MyShop.Infrastructure.Authentication;
 using MyShop.Infrastructure.Mongo;
+using MyShop.Infrastructure.Mvc;
 
 namespace MyShop.Infrastructure
 {
@@ -14,7 +18,11 @@ namespace MyShop.Infrastructure
                 .AsImplementedInterfaces()
                 .InstancePerLifetimeScope();
             builder.AddMongoDB();
+            builder.RegisterJwtValidatorMiddleware();
+            builder.RegisterErrorHandlerMiddleware();
             builder.AddMongoDBRepository<Product>("Products");
+            builder.AddMongoDBRepository<User>("Users");
+            builder.AddMongoDBRepository<RefreshToken>("RefreshTokens");
         }
     }
 }

@@ -7,8 +7,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MyShop.Infrastructure;
+using MyShop.Infrastructure.Authentication;
 using MyShop.Infrastructure.Mongo;
 using MyShop.Infrastructure.Mvc;
+using MyShop.Infrastructure.Redis;
 using MyShop.Services;
 
 namespace MyShop.Api
@@ -27,13 +29,16 @@ namespace MyShop.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
+            services.AddCustomAuthentication();
             services.AddCustomMvc();
+            services.AddRedis();
 
             var builder = new ContainerBuilder();
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
                 .AsImplementedInterfaces();
             InfrastructureContainer.Load(builder);
             ServicesContainer.Load(builder);
+
             builder.Populate(services);
             Container = builder.Build();
 
@@ -57,7 +62,9 @@ namespace MyShop.Api
             }
 
             app.UseHttpsRedirection();
-            app.UseMiddleware(typeof(ErrorHandlerMiddleware));
+            app.UseErrorHandler();
+            app.UseJwtValidatorMiddleware();
+            app.UseAuthentication();
             app.UseMvc();
 
             applicationLifetime.ApplicationStopped.Register(() =>
