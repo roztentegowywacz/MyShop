@@ -8,7 +8,6 @@ namespace MyShop.Api.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    [JwtAuth]
     public abstract class ApiController : ControllerBase
     {
         protected readonly IDispatcher _dispatcher;

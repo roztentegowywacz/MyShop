@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 
 namespace MyShop.Core.Domain.Authentication.Repositories
@@ -6,5 +7,6 @@ namespace MyShop.Core.Domain.Authentication.Repositories
     {
         Task AddAsync(RefreshToken refreshToken);
         Task<RefreshToken> GetAsync(string token);
+        Task DeleteAsync(Guid id);
     }
 }

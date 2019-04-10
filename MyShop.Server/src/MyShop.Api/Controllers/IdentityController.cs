@@ -6,16 +6,18 @@ using MyShop.Infrastructure.Mvc;
 using MyShop.Services.Identity.Handlers;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.AspNetCore.Authorization;
+using System;
+using MyShop.Infrastructure.Authentication;
 
 namespace MyShop.Api.Controllers
 {
+    [Route("")]
     public class IdentityController : ApiController
     {
         public IdentityController(IDispatcher dispatcher) : base(dispatcher)
         {
         }
         
-        [AllowAnonymous]
         [HttpPost("sign-up")]
         public async Task<IActionResult> SignUp(SignUp command)
         {
@@ -24,7 +26,6 @@ namespace MyShop.Api.Controllers
             return Ok();
         }
 
-        [AllowAnonymous]
         [HttpPost("sign-in")]
         public async Task<ActionResult<JsonWebToken>> SignIn(SignIn command)
         {
@@ -32,5 +33,16 @@ namespace MyShop.Api.Controllers
 
             return Ok(jwt);
         }
+
+        [JwtAuth]
+        [HttpGet("me")]
+        public IActionResult Get()
+        {
+            var myId = string.IsNullOrWhiteSpace(User?.Identity?.Name)
+                ? Guid.Empty
+                : Guid.Parse(User.Identity.Name);
+
+            return Content($"Your id: '{myId}'");
+        } 
     }
 }
