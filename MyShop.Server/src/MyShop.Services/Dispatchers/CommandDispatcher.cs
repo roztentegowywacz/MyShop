@@ -28,13 +28,17 @@ namespace MyShop.Services.Dispatchers
             await handler.HandleAsync(command);
         }
 
-        // TODO: Add nullcheck if command not found
         public async Task<TResult> SendAndResponseDataAsync<TResult>(ICommand<TResult> command)
         {
             var handlerType = typeof(ICommandHandler<,>)
                 .MakeGenericType(command.GetType(), typeof(TResult));
             
             dynamic handler = _componentContext.Resolve(handlerType);
+            if (handler is null)
+            {
+                throw new ArgumentException($"Command handler: '{handlerType.Name} was not found.'",
+                    nameof(handler));
+            }
 
             return await handler.HandleAsync((dynamic)command);
         }
