@@ -9,9 +9,9 @@ using MyShop.Services.Dispatchers;
 namespace MyShop.Api.Controllers
 {
     [Route("")]
-    public class TokenController : ApiController
+    public class TokensController : ApiController
     {
-        public TokenController(IDispatcher dispatcher) : base(dispatcher)
+        public TokensController(IDispatcher dispatcher) : base(dispatcher)
         {
         }
 

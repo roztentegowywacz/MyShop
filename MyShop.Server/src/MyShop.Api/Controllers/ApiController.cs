@@ -42,5 +42,10 @@ namespace MyShop.Api.Controllers
 
             return Ok(pagedResults);
         }
+
+        protected Guid UserId
+            => string.IsNullOrWhiteSpace(User?.Identity?.Name)
+                ? Guid.Empty
+                : Guid.Parse(User.Identity.Name);
     }
 }

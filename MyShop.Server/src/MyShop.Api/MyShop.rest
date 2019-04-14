@@ -80,3 +80,29 @@ Content-Type: application/json
     "refreshToken": "{{refreshToken}}",
     "userId": "{{myId}}"
 }
+
+### CREATE CUSTOMER
+POST {{url}}/customers
+Content-Type: application/json
+
+{
+    "firstName": "Tomasz",
+    "lastName": "Klag",
+    "address": "Niezapominiajek 3/26"
+}
+
+### GET CUSTOMER
+GET {{url}}/customers/...
+
+### ADD PRODUCT TO CART
+POST {{url}}/carts/items
+Content-Type: application/json
+
+{
+    "customerId" : "...",
+    "productId": "...",
+    "quantity": 1
+}
+
+### GET CART
+GET {{url}}/carts/...
