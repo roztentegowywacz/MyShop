@@ -2,6 +2,9 @@
 @token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmZDhiZmE1ZWI1MjY0Zjk1OGQ4MGRhYTBlODQzMmExNSIsInVuaXF1ZV9uYW1lIjoiZmQ4YmZhNWViNTI2NGY5NThkODBkYWEwZTg0MzJhMTUiLCJqdGkiOiJkYzI1NzEwMy05NzRhLTRhOTQtYTdmZS1lNjhiMTgxMTIyNWEiLCJpYXQiOiIxNTU0OTIxNTM1NTYzIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoidXNlciIsIm5iZiI6MTU1NDkyMTUzNSwiZXhwIjoxNTU0OTIxNTk1LCJpc3MiOiJNeVNob3AifQ.T5VDuUlNJWPEk5aTF2a0hsTC3iS-IoXngHSxyMSbFD4
 @refreshToken = AQAAAAEAACcQAAAAEG4cyi369kSpGEogMnwS/pv3TF3P3bWHZSadhkVazYJek477aP33TGqhiUM2tTsSDg==
 @myId = fd8bfa5e-b526-4f95-8d80-daa0e8432a15
+@productId = 84891cad-52d9-4c18-81de-fa2d92c237e9
+@customerId = 747c396d-cfc0-457f-974f-bbf57940673b
+@cartId = 747c396d-cfc0-457f-974f-bbf57940673b
 
 ### CREATE new product
 POST {{url}}/products
@@ -12,14 +15,12 @@ Content-Type: application/json
     "description": "desc",
     "vendor": "vendor",
     "price": 1,
-    "quantity": 1
+    "quantity": 100
 }
 
 ### BROWSE products
 GET {{url}}/products/
-Authorization: Bearer {{token}}
 
-@productId = d92c3532-d103-4666-9cfb-f05416063ea1
 
 ### GET product with specific id
 GET {{url}}/products/{{productId}}
@@ -86,23 +87,24 @@ POST {{url}}/customers
 Content-Type: application/json
 
 {
+    "email": "tomek.klag@gmail.com",
     "firstName": "Tomasz",
     "lastName": "Klag",
-    "address": "Niezapominiajek 3/26"
+    "address": "Nieznana 1/20"
 }
 
 ### GET CUSTOMER
-GET {{url}}/customers/...
+GET {{url}}/customers/{{customerId}}
 
 ### ADD PRODUCT TO CART
 POST {{url}}/carts/items
 Content-Type: application/json
 
 {
-    "customerId" : "...",
-    "productId": "...",
+    "customerId" : "{{customerId}}",
+    "productId": "{{productId}}",
     "quantity": 1
 }
 
 ### GET CART
-GET {{url}}/carts/...
+GET {{url}}/carts/{{cartId}}

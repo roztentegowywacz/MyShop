@@ -14,6 +14,9 @@ namespace MyShop.Infrastructure.Mongo.Repositories
             _repository = repository;
         }
 
+        public async Task AddAsync(Customer customer)
+            => await _repository.AddAsync(customer);
+
         public async Task<Customer> GetAsync(Guid id)
             => await _repository.GetAsync(id);
 

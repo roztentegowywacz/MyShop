@@ -45,7 +45,7 @@ namespace MyShop.Api.Controllers
 
         protected Guid UserId
             => string.IsNullOrWhiteSpace(User?.Identity?.Name)
-                ? Guid.Empty
+                ? Guid.NewGuid()
                 : Guid.Parse(User.Identity.Name);
     }
 }
