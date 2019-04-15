@@ -8,9 +8,12 @@ using MyShop.Services.Products.Dtos;
 using MyShop.Services.Products.Queries;
 using MyShop.Infrastructure.Mvc;
 using MyShop.Core.Domain;
+using MyShop.Infrastructure.Authentication;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MyShop.Api.Controllers
 {
+    [AdminAuth]
     public class ProductsController : ApiController
     {
         public ProductsController(IDispatcher dispatcher) : base(dispatcher)
@@ -24,7 +27,8 @@ namespace MyShop.Api.Controllers
 
             return CreatedAtAction(nameof(Get), new GetProduct(){ Id = command.Id }, null);
         }
-
+        
+        [AllowAnonymous]
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<ProductDto>> Get([FromRoute] GetProduct query)
         {
@@ -33,6 +37,7 @@ namespace MyShop.Api.Controllers
             return Single(product);
         } 
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery] BrowseProducts query)
         {

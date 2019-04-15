@@ -7,8 +7,8 @@ using MyShop.Services.Dispatchers;
 
 namespace MyShop.Api.Controllers
 {
-    [Route("[controller]")]
     [ApiController]
+    [Route("[controller]")]
     public abstract class ApiController : ControllerBase
     {
         protected readonly IDispatcher _dispatcher;

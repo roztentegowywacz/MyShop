@@ -12,13 +12,13 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace MyShop.Api.Controllers
 {
+    [JwtAuth]
     public class CustomersController : ApiController
     {
         public CustomersController(IDispatcher dispatcher) : base(dispatcher)
         {
         }
 
-        [JwtAuth]
         [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Post(CreateCustomer command)
