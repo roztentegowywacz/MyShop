@@ -28,8 +28,16 @@ namespace MyShop.Services.Customers.Handlers
             var customer = await _customersRepository.GetAsync(command.Id);
             if (customer is null)
             {
+                if (string.IsNullOrWhiteSpace(command.Email))
+                {
+                    throw new MyShopException("email_invalid",
+                        $"Email can not be empty.");
+                }   
                 customer = new Customer(command.Id, command.Email);
                 await _customersRepository.AddAsync(customer);
+
+                var newCart = new Cart(command.Id);
+                await _cartsRepository.AddAsync(newCart);
             }
 
             if (customer.Completed)
@@ -40,9 +48,6 @@ namespace MyShop.Services.Customers.Handlers
 
             customer.Complete(command.FirstName, command.LastName, command.Address);
             await _customersRepository.UpdateAsync(customer);
-
-            var newCart = new Cart(command.Id);
-            await _cartsRepository.AddAsync(newCart);
         }
     }
 }

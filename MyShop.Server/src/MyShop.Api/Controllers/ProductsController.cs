@@ -46,7 +46,7 @@ namespace MyShop.Api.Controllers
         {
             await _dispatcher.SendAsync(command.Bind(c => c.Id, id));
 
-            return CreatedAtAction(nameof(Get), new GetProduct(){ Id = id }, null);
+            return NoContent();
         }
 
         [HttpDelete("{id:guid}")]

@@ -5,6 +5,10 @@ using MyShop.Services.Customers.Dtos;
 using MyShop.Services.Customers.Queries;
 using MyShop.Services.Dispatchers;
 using MyShop.Infrastructure.Mvc;
+using System;
+using MyShop.Services.Authentication.Services;
+using MyShop.Infrastructure.Authentication;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MyShop.Api.Controllers
 {
@@ -14,9 +18,12 @@ namespace MyShop.Api.Controllers
         {
         }
 
+        [JwtAuth]
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Post(CreateCustomer command)
         {
+            var user = User;
             await _dispatcher.SendAsync(command.Bind(c => c.Id, UserId));
 
             return CreatedAtAction(nameof(Get), new GetCustomer(){ Id = command.Id }, null);

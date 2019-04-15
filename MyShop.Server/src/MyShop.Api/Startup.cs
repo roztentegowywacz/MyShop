@@ -67,12 +67,12 @@ namespace MyShop.Api
             app.UseAuthentication();
             app.UseMvc();
 
+            MongoDbInitializer.RegisterConventions();
+
             applicationLifetime.ApplicationStopped.Register(() =>
             {
                 Container.Dispose();
             });
-
-            MongoDbInitializer.RegisterConventions();
         }
     }
 }

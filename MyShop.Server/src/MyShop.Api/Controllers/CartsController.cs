@@ -16,31 +16,31 @@ namespace MyShop.Api.Controllers
         {
         }
 
-        [JwtAuth]
-        [HttpPost("items")]
-        public async Task<IActionResult> Post(AddProductToCart command)
-        {
-            await _dispatcher.SendAsync(command.Bind(c => c.CustomerId, UserId));
+        // [JwtAuth]
+        // [HttpPost("items")]
+        // public async Task<IActionResult> Post(AddProductToCart command)
+        // {
+        //     await _dispatcher.SendAsync(command.Bind(c => c.CustomerId, UserId));
 
-            return CreatedAtAction(nameof(Get), new GetCart(){ Id = command.CustomerId }, null);
-        }
+        //     return CreatedAtAction(nameof(Get), new GetCart(){ Id = command.CustomerId }, null);
+        // }
 
-        [JwtAuth]
-        [HttpGet("cart")]
-        public async Task<ActionResult<CartDto>> Get()
-        {
-            var cart = await _dispatcher.QueryAsync(new GetCart() { Id = UserId });
+        // [JwtAuth]
+        // [HttpGet("cart")]
+        // public async Task<ActionResult<CartDto>> Get()
+        // {
+        //     var cart = await _dispatcher.QueryAsync(new GetCart() { Id = UserId });
             
-            return Single(cart);
-        }
+        //     return Single(cart);
+        // }
 
-        [JwtAuth]
-        [HttpDelete("items/{productId:guid}")]
-        public async Task<IActionResult> Delete([FromRoute] Guid productId)
-        {
-            await _dispatcher.SendAsync(new DeleteProductFromCart(UserId, productId));
+        // [JwtAuth]
+        // [HttpDelete("items/{productId:guid}")]
+        // public async Task<IActionResult> Delete([FromRoute] Guid productId)
+        // {
+        //     await _dispatcher.SendAsync(new DeleteProductFromCart(UserId, productId));
 
-            return NoContent();
-        }
+        //     return NoContent();
+        // }
     }
 }

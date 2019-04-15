@@ -2,6 +2,7 @@ using System;
 using Microsoft.AspNetCore.Mvc;
 using MyShop.Core.Types;
 using MyShop.Infrastructure.Authentication;
+using MyShop.Services.Authentication.Services;
 using MyShop.Services.Dispatchers;
 
 namespace MyShop.Api.Controllers
@@ -47,5 +48,6 @@ namespace MyShop.Api.Controllers
             => string.IsNullOrWhiteSpace(User?.Identity?.Name)
                 ? Guid.NewGuid()
                 : Guid.Parse(User.Identity.Name);
+        
     }
 }

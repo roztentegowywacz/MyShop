@@ -38,11 +38,7 @@ namespace MyShop.Api.Controllers
         [HttpGet("me")]
         public IActionResult Get()
         {
-            var myId = string.IsNullOrWhiteSpace(User?.Identity?.Name)
-                ? Guid.Empty
-                : Guid.Parse(User.Identity.Name);
-
-            return Content($"Your id: '{myId}'");
+            return Content($"Your id: '{UserId}'");
         } 
     }
 }
