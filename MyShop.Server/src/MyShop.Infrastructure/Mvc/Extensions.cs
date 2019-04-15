@@ -2,10 +2,12 @@ using System;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Security.Claims;
 using Autofac;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using MyShop.Core.Domain;
+using MyShop.Core.Domain.Identity;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
@@ -19,7 +21,7 @@ namespace MyShop.Infrastructure.Mvc
                 .AddMvcCore()
                 .AddJsonFormatters()
                 .AddDefaultJsonOptions()
-                .AddAuthorization();
+                .AddAuthorization(o => o.AddPolicy("admin", p => p.RequireClaim(ClaimTypes.Role, Role.Admin)));
 
         public static IMvcCoreBuilder AddDefaultJsonOptions(this IMvcCoreBuilder builder)
             => builder.AddJsonOptions(o =>

@@ -4,7 +4,7 @@ namespace MyShop.Infrastructure.Authentication
 {
     public class AdminAuthAttribute : JwtAuthAttribute
     {
-        public AdminAuthAttribute() : base(Role.Admin)
+        public AdminAuthAttribute() : base("admin")
         {
         }
     }
