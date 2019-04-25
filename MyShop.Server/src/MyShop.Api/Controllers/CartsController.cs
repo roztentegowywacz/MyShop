@@ -1,12 +1,12 @@
-using MyShop.Services.Dispatchers;
-using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
-using MyShop.Services.Carts.Commands;
-using MyShop.Services.Carts.Queries;
-using MyShop.Services.Carts.Dtos;
 using System;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using MyShop.Infrastructure.Authentication;
 using MyShop.Infrastructure.Mvc;
+using MyShop.Services.Carts.Commands;
+using MyShop.Services.Carts.Dtos;
+using MyShop.Services.Carts.Queries;
+using MyShop.Services.Dispatchers;
 
 namespace MyShop.Api.Controllers
 {
@@ -14,22 +14,21 @@ namespace MyShop.Api.Controllers
     public class CartsController : ApiController
     {
         public CartsController(IDispatcher dispatcher) : base(dispatcher)
-        {
-        }
+        { }
 
         [HttpPost("items")]
         public async Task<IActionResult> Post(AddProductToCart command)
         {
             await _dispatcher.SendAsync(command.Bind(c => c.CustomerId, UserId));
 
-            return CreatedAtAction(nameof(Get), new GetCart(){ Id = command.CustomerId }, null);
+            return CreatedAtAction(nameof(Get), new GetCart() { Id = command.CustomerId }, null);
         }
 
         [HttpGet("my")]
         public async Task<ActionResult<CartDto>> Get()
         {
             var cart = await _dispatcher.QueryAsync(new GetCart() { Id = UserId });
-            
+
             return Single(cart);
         }
 

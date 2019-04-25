@@ -12,8 +12,7 @@ namespace MyShop.Api.Controllers
     public class TokensController : ApiController
     {
         public TokensController(IDispatcher dispatcher) : base(dispatcher)
-        {
-        }
+        { }
 
         [HttpPost("access-tokens/refresh")]
         public async Task<ActionResult<JsonWebToken>> RefreshAccessToken(RefreshAccessToken command)

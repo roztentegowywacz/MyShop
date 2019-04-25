@@ -6,7 +6,6 @@ namespace MyShop.Api.Controllers
     public class HomeController : ControllerBase
     {
         [HttpGet]
-        public IActionResult Get()
-            => Ok("MyShop Api works!");
+        public IActionResult Get() => Ok("MyShop Api works!");
     }
 }

@@ -1,13 +1,13 @@
+using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.JsonWebTokens;
+using MyShop.Infrastructure.Authentication;
+using MyShop.Infrastructure.Mvc;
 using MyShop.Services.Dispatchers;
 using MyShop.Services.Identity.Commands;
-using MyShop.Infrastructure.Mvc;
 using MyShop.Services.Identity.Handlers;
-using Microsoft.IdentityModel.JsonWebTokens;
-using Microsoft.AspNetCore.Authorization;
-using System;
-using MyShop.Infrastructure.Authentication;
 
 namespace MyShop.Api.Controllers
 {
@@ -15,13 +15,12 @@ namespace MyShop.Api.Controllers
     public class IdentityController : ApiController
     {
         public IdentityController(IDispatcher dispatcher) : base(dispatcher)
-        {
-        }
-        
+        { }
+
         [HttpPost("sign-up")]
         public async Task<IActionResult> SignUp(SignUp command)
         {
-            await _dispatcher.SendAsync(command.BindId(c => c.Id));    
+            await _dispatcher.SendAsync(command.BindId(c => c.Id));
 
             return Ok();
         }
@@ -39,6 +38,6 @@ namespace MyShop.Api.Controllers
         public IActionResult Get()
         {
             return Content($"Your id: '{UserId}'");
-        } 
+        }
     }
 }

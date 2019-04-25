@@ -45,9 +45,9 @@ namespace MyShop.Api.Controllers
         }
 
         protected Guid UserId
-            => string.IsNullOrWhiteSpace(User?.Identity?.Name)
-                ? Guid.NewGuid()
-                : Guid.Parse(User.Identity.Name);
-        
+            => string.IsNullOrWhiteSpace(User?.Identity?.Name) ?
+            Guid.NewGuid() :
+            Guid.Parse(User.Identity.Name);
+
     }
 }
