@@ -1,5 +1,7 @@
 using System.Threading.Tasks;
+using MyShop.Core.Domain.Carts.Repositories;
 using MyShop.Core.Domain.Exceptions;
+using MyShop.Core.Domain.Products;
 using MyShop.Core.Domain.Products.Repositories;
 using MyShop.Services.Products.Commands;
 
@@ -8,10 +10,13 @@ namespace MyShop.Services.Products.Handlers
     public class UpdateProductHandler : ICommandHandler<UpdateProduct>
     {
         private readonly IProductsRepository _productRepository;
+        private readonly ICartsRepository _cartsRepository;
 
-        public UpdateProductHandler(IProductsRepository productRepository)
+        public UpdateProductHandler(IProductsRepository productRepository,
+            ICartsRepository cartsRepository)
         {
             _productRepository = productRepository;
+            _cartsRepository = cartsRepository;
         }
 
         public async Task HandleAsync(UpdateProduct command)
@@ -22,14 +27,12 @@ namespace MyShop.Services.Products.Handlers
                 throw new NotFoundException("product_not_found",
                     $"Product with an id: '{command.Id}' was not found.");
             }
+            
+            var newProduct = new Product(command.Id, command.Name,
+                command.Description, command.Vendor,
+                command.Price, command.Quantity);
 
-            product.SetDescription(command.Description);
-            product.SetName(command.Name);
-            product.SetPrice(command.Price);
-            product.SetQuantity(command.Quantity);
-            product.SetVendor(command.Vendor);
-
-            await _productRepository.UpdateAsync(product);
+            await _productRepository.UpdateAsync(newProduct);
         }
     }
 }

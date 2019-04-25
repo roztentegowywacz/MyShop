@@ -30,10 +30,10 @@ namespace MyShop.Services.Carts.Handlers
                 Id = cart.Id,
                 Items = cart.Items.Select(x => new CartItemDto()
                 {
-                    ProductId = x.ProductId,
-                    ProductName = x.ProductName,
+                    ProductId = x.Product.Id,
+                    ProductName = x.Product.Name,
+                    UnitPrice = x.Product.Price,
                     Quantity = x.Quantity,
-                    UnitPrice = x.UnitPrice
                 })
             };
         }

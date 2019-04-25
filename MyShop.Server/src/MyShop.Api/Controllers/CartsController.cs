@@ -25,7 +25,7 @@ namespace MyShop.Api.Controllers
             return CreatedAtAction(nameof(Get), new GetCart(){ Id = command.CustomerId }, null);
         }
 
-        [HttpGet("cart")]
+        [HttpGet("my")]
         public async Task<ActionResult<CartDto>> Get()
         {
             var cart = await _dispatcher.QueryAsync(new GetCart() { Id = UserId });

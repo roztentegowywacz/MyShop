@@ -44,7 +44,19 @@ namespace MyShop.Core.Domain.Carts
             _items.Remove(item);
         }
 
+        public void UpdateProduct(Product product)
+        {
+            var item = GetCartItem(product.Id);
+            if (item is null)
+            {
+                throw new MyShopException("product_not_found",
+                    $"Product with id: '{product.Id}' was not found.");
+            }
+
+            // item.
+        }
+
         private CartItem GetCartItem(Guid productId)
-            => _items.SingleOrDefault(x => x.ProductId == productId);
+            => _items.SingleOrDefault(x => x.Product.Id == productId);
     }
 }

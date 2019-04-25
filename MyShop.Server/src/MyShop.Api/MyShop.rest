@@ -1,10 +1,10 @@
 @url = https://localhost:5001
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3NWYwZTgxZDdhY2M0MzFkYmQwMjE2YzlmM2FlZDk2NSIsInVuaXF1ZV9uYW1lIjoiNzVmMGU4MWQ3YWNjNDMxZGJkMDIxNmM5ZjNhZWQ5NjUiLCJqdGkiOiJhZjdjMWM3Ny1jMDBlLTQyOGYtOTIwOC1jOTZmNDg5ZjNjYjMiLCJpYXQiOiIxNTU1MzYyODY1NDQ4IiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiYWRtaW4iLCJuYmYiOjE1NTUzNjI4NjUsImV4cCI6MTU1NTk2Mjg2NSwiaXNzIjoiTXlTaG9wIn0.R_G4kgAh71am1GsD30MSIPyARbmyw310Mv6a5337Feo
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3NWYwZTgxZDdhY2M0MzFkYmQwMjE2YzlmM2FlZDk2NSIsInVuaXF1ZV9uYW1lIjoiNzVmMGU4MWQ3YWNjNDMxZGJkMDIxNmM5ZjNhZWQ5NjUiLCJqdGkiOiJjMmQ0MTM5Ny0xMGEwLTQ3N2ItYTI0MC05NGRiMjk3ZDI1Y2IiLCJpYXQiOiIxNTU2MTMzODg4NDA0IiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiYWRtaW4iLCJuYmYiOjE1NTYxMzM4ODgsImV4cCI6MTU1NjczMzg4OCwiaXNzIjoiTXlTaG9wIn0.oR5CMSqI8cwZls2hsLI3PwLCU3AjUj707t2IAiavMkw
 @refreshToken = AQAAAAEAACcQAAAAEAF+kGWv2sB7SvayJf6F5v+Kv5LN1LzCErFWf64A0AiJbibieJnUgNW5CkgQsAncEQ==
 @myId = 75f0e81d-7acc-431d-bd02-16c9f3aed965
-@productId = 9015e45d-80cd-4fe4-a01c-c0eb82caa0ca
+@productId = 9cfae941-fa3c-4a91-8510-ca3c9518b417
 @customerId = {{myId}}
-@cartId = 747c396d-cfc0-457f-974f-bbf57940673b
+@cartId = 75f0e81d-7acc-431d-bd02-16c9f3aed965
 
 ### CREATE new product
 POST {{url}}/products
@@ -12,11 +12,11 @@ Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-    "name": "super product_2",
+    "name": "aaaaa",
     "description": "desc",
     "vendor": "vendor",
-    "price": 10.99,
-    "quantity": 25
+    "price": 11.11,
+    "quantity": 50
 }
 
 ### BROWSE products
@@ -33,10 +33,10 @@ Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-    "name": "super product1",
-    "description": "super description",
+    "name": "bbbbb",
+    "description": "nowe super!!",
     "vendor": "vendor",
-    "price": 12.20,
+    "price": 11.11,
     "quantity": 100
 }
 
@@ -111,6 +111,10 @@ Content-Type: application/json
     "quantity": 1
 }
 
+### DELETE PRODUCT FROM CART
+DELETE {{url}}/carts/items/{{productId}}
+Authorization: Bearer {{token}}
+
 ### GET CART
-GET {{url}}/carts/{{cartId}}
+GET {{url}}/carts/my
 Authorization: Bearer {{token}}
