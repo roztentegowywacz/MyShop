@@ -11,13 +11,13 @@ namespace MyShop.Api.Controllers
     [Route("")]
     public class TokensController : ApiController
     {
-        public TokensController(IDispatcher dispatcher) : base(dispatcher)
-        { }
+        public TokensController(IDispatcher dispatcher) : base(dispatcher) { }
 
         [HttpPost("access-tokens/refresh")]
         public async Task<ActionResult<JsonWebToken>> RefreshAccessToken(RefreshAccessToken command)
         {
             var jwt = await _dispatcher.SendAndResponseDataAsync(command);
+
             return Ok(jwt);
         }
 
@@ -26,6 +26,7 @@ namespace MyShop.Api.Controllers
         public async Task<IActionResult> RevokeAccessToken(RevokeAccessToken command)
         {
             await _dispatcher.SendAsync(command);
+
             return NoContent();
         }
     }
