@@ -57,6 +57,6 @@ namespace MyShop.Core.Domain.Carts
         }
 
         private CartItem GetCartItem(Guid productId)
-            => _items.SingleOrDefault(x => x.Product.Id == productId);
+            => _items.SingleOrDefault(x => x.ProductId == productId);
     }
 }

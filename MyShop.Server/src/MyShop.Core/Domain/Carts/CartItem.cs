@@ -6,13 +6,17 @@ namespace MyShop.Core.Domain.Carts
 {
     public class CartItem
     {
-        public virtual Product Product { get; set; }
+        public Guid ProductId { get; private set; }
+        public string ProductName { get; private set; }
+        public decimal UnitPrice { get; private set; }
         public int Quantity { get; private set; }
-        public decimal TotalPrice => Quantity * Product.Price;
+        public decimal TotalPrice => Quantity * UnitPrice;
 
         public CartItem(Product product, int quantity)
         {
-            Product = product;
+            ProductId = product.Id;
+            ProductName = product.Name;
+            UnitPrice = product.Price;
             Quantity = quantity;
         }
 
@@ -25,6 +29,12 @@ namespace MyShop.Core.Domain.Carts
             }
 
             Quantity += quantity;
+        }
+
+        public void UpdateProduct(Product product)
+        {
+            ProductName = product.Name;
+            UnitPrice = product.Price;
         }
     }
 }

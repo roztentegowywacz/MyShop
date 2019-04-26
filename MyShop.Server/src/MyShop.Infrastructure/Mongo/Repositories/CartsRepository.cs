@@ -23,7 +23,7 @@ namespace MyShop.Infrastructure.Mongo.Repositories
             => await _repository.GetAsync(id);
 
         public async Task<IEnumerable<Cart>> GetAllWithProducts(Guid productId)
-            => await _repository.FindAsync(c => c.Items.Any(i => i.Product.Id == productId));
+            => await _repository.FindAsync(c => c.Items.Any(i => i.ProductId == productId));
 
         public async Task UpdateAsync(Cart cart)
             => await _repository.UpdateAsync(cart);
