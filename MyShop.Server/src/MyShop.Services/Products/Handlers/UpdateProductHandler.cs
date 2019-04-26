@@ -33,6 +33,14 @@ namespace MyShop.Services.Products.Handlers
                 command.Price, command.Quantity);
 
             await _productRepository.UpdateAsync(newProduct);
+
+            var carts = await _cartsRepository.GetAllWithProducts(command.Id);
+            foreach (var cart in carts)
+            {
+                cart.UpdateProduct(newProduct);                
+            }
+
+            await _cartsRepository.UpdateManyAsync(carts);
         }
     }
 }

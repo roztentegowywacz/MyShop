@@ -30,13 +30,13 @@ namespace MyShop.Services.Products.Handlers
 
             await _productsRepository.DeleteAsync(command.Id);
 
-            // var carts = await _cartsRepository.GetAllWithProducts(command.Id);
-            // foreach (var cart in carts)
-            // {
-            //     cart.DeleteProduct(command.Id);
-            // }
+            var carts = await _cartsRepository.GetAllWithProducts(command.Id);
+            foreach (var cart in carts)
+            {
+                cart.DeleteProduct(command.Id);
+            }
 
-            // await _cartsRepository.UpdateManyAsync(carts);
+            await _cartsRepository.UpdateManyAsync(carts);
         }
     }
 }

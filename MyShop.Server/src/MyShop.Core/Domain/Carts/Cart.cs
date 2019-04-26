@@ -53,7 +53,7 @@ namespace MyShop.Core.Domain.Carts
                     $"Product with id: '{product.Id}' was not found.");
             }
 
-            // item.
+            item.UpdateProduct(product);
         }
 
         private CartItem GetCartItem(Guid productId)

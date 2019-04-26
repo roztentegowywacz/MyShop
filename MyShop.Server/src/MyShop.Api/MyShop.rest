@@ -1,8 +1,8 @@
 @url = https://localhost:5001
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyM2EyZWNlZGEyMTA0OGIyYWM4YjE4ZjMzYTRlMmRlZiIsInVuaXF1ZV9uYW1lIjoiMjNhMmVjZWRhMjEwNDhiMmFjOGIxOGYzM2E0ZTJkZWYiLCJqdGkiOiI0MGI1ZTQzNi0xMTgyLTQ1NTEtOTRjNi03NjY1NzI1OTNjY2YiLCJpYXQiOiIxNTU2MjIyMTU5ODg4IiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiYWRtaW4iLCJuYmYiOjE1NTYyMjIxNTksImV4cCI6MTU1NjI4MjE1OSwiaXNzIjoiTXlTaG9wIn0.b_xOR_6nE-6_5A2LTEtmzBI5cWF_o0g-O2BRPuvO3io
-@refreshToken = AQAAAAEAACcQAAAAEEJD6lq+CoR0loVWFYz2Y7mQandzOVH4sZdMkPwm5SuyN6HRdBSus522oi6vzl6+VA==
-@myId = 23a2eced-a210-48b2-ac8b-18f33a4e2def
-@productId = 2488bc4c-e5a9-4d25-9b55-869c3e627370
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzNTZhZGM2MGIwNTk0MmE4OTNjNDQzYjc4NjE1MDdlNyIsInVuaXF1ZV9uYW1lIjoiMzU2YWRjNjBiMDU5NDJhODkzYzQ0M2I3ODYxNTA3ZTciLCJqdGkiOiIyZDI3ODFlNy04ZTk0LTRiZWMtODk1OC1jY2RlNzZiMDZmOTUiLCJpYXQiOiIxNTU2MzA1MDgzNDI5IiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiYWRtaW4iLCJuYmYiOjE1NTYzMDUwODMsImV4cCI6MTU1NjkwNTA4MywiaXNzIjoiTXlTaG9wIn0.ZV4Kf-6I5z0i98LCv0N-Y7krUHkMwl7KxaiNlXbGQlE
+@refreshToken = AQAAAAEAACcQAAAAECmBGr9F+Rj9UJ6/hEZEQvI4Gg3Q6GpB9CdX6VGjvHQ8SC3SF8hsYMUF4YZOZ4Bc1Q==
+@myId = 356adc60-b059-42a8-93c4-43b7861507e7
+@productId = 71a726d4-a400-45ea-8787-9c1dfd230de1
 @customerId = {{myId}}
 @cartId = {{myId}}
 
@@ -33,7 +33,7 @@ Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-    "name": "bbbbb",
+    "name": "po update",
     "description": "nowe super!!",
     "vendor": "vendor",
     "price": 11.11,
@@ -108,7 +108,7 @@ Content-Type: application/json
 {
     "customerId" : "{{customerId}}",
     "productId": "{{productId}}",
-    "quantity": 1
+    "quantity": 12
 }
 
 ### DELETE PRODUCT FROM CART
