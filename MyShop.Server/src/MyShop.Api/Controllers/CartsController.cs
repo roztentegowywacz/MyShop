@@ -39,5 +39,13 @@ namespace MyShop.Api.Controllers
 
             return NoContent();
         }
+
+        [HttpPost("clear")]
+        public async Task<IActionResult> ClearCart()
+        {
+            await _dispatcher.SendAsync(new ClearCart(UserId));
+
+            return NoContent();
+        }
     }
 }

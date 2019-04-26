@@ -56,6 +56,9 @@ namespace MyShop.Core.Domain.Carts
             item.UpdateProduct(product);
         }
 
+        public void Clear()
+            => _items.Clear();
+
         private CartItem GetCartItem(Guid productId)
             => _items.SingleOrDefault(x => x.ProductId == productId);
     }

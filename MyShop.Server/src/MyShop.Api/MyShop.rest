@@ -118,3 +118,7 @@ Authorization: Bearer {{token}}
 ### GET CART
 GET {{url}}/carts/my
 Authorization: Bearer {{token}}
+
+### CLEAR CART
+POST  {{url}}/carts/clear
+Authorization: Bearer {{token}}
