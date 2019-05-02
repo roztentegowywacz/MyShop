@@ -5,6 +5,7 @@
 @productId = 71a726d4-a400-45ea-8787-9c1dfd230de1
 @customerId = {{myId}}
 @cartId = {{myId}}
+@orderId = 68a98f4d-0038-465c-8526-5312b5786551
 
 ### CREATE new product
 POST {{url}}/products
@@ -121,4 +122,17 @@ Authorization: Bearer {{token}}
 
 ### CLEAR CART
 POST  {{url}}/carts/clear
+Authorization: Bearer {{token}}
+
+### CREATE ORDER
+POST {{url}}/orders
+Authorization:  Bearer {{token}}
+Content-Type: application/json
+
+{
+    "customerId": "{{customerId}}"
+}
+
+### GET ORDER
+GET {{url}}/orders/{{orderId}}
 Authorization: Bearer {{token}}
