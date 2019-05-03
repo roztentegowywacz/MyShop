@@ -136,3 +136,7 @@ Content-Type: application/json
 ### GET ORDER
 GET {{url}}/orders/{{orderId}}
 Authorization: Bearer {{token}}
+
+### BROWSE ORDER
+GET {{url}}/orders?Status=0
+Authorization: Bearer {{token}}

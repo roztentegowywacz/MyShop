@@ -9,7 +9,7 @@ using MyShop.Services.Orders.Queries;
 
 namespace MyShop.Services.Orders.Handlers
 {
-    public class GetOrderHandler : IQueryHandler<GetOrder, OrderDto>
+    public class GetOrderHandler : IQueryHandler<GetOrder, OrderDetailsDto>
     {
         private readonly IOrdersRepository _ordersRepository;
         private readonly ICustomersRepository _customersRepository;
@@ -21,7 +21,7 @@ namespace MyShop.Services.Orders.Handlers
             _customersRepository = customersRepository;
         }
 
-        public async Task<OrderDto> HandleAsync(GetOrder query)
+        public async Task<OrderDetailsDto> HandleAsync(GetOrder query)
         {
             var order = await _ordersRepository.GetAsync(query.Id);
             if (order is null)
@@ -32,7 +32,7 @@ namespace MyShop.Services.Orders.Handlers
 
             var customer = await _customersRepository.GetAsync(order.CustomerId);
 
-            return new OrderDto()
+            return new OrderDetailsDto()
             {
                 Id = order.Id,
                 Status = order.Status.ToString().ToLowerInvariant(),

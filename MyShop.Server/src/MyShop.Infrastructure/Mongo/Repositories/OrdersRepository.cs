@@ -1,7 +1,9 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using MyShop.Core.Domain.Orders;
 using MyShop.Core.Domain.Orders.Repositories;
+using MyShop.Core.Types;
 
 namespace MyShop.Infrastructure.Mongo.Repositories
 {
@@ -14,15 +16,19 @@ namespace MyShop.Infrastructure.Mongo.Repositories
             _repository = repository;
         }
 
-        public Task AddAsync(Order order)
-            => _repository.AddAsync(order);
+        public async Task AddAsync(Order order)
+            => await _repository.AddAsync(order);
 
-        public Task<bool> HasPendingOrderAsync(Guid customerId)
-            => _repository.ExistsAsync(o => o.CustomerId == customerId &&
+        public async Task<bool> HasPendingOrderAsync(Guid customerId)
+            => await _repository.ExistsAsync(o => o.CustomerId == customerId &&
                                             (o.Status == OrderStatus.Created ||
                                              o.Status == OrderStatus.Approved));
 
-        public Task<Order> GetAsync(Guid id)
-            => _repository.GetAsync(id);
+        public async Task<Order> GetAsync(Guid id)
+            => await _repository.GetAsync(id);
+
+        public async Task<PagedResults<Order>> BrowseAsync(IPagedFilterQuery<OrderStatus> query)
+            => await _repository.BrowseAsync(
+                                    o => o.Status == query.ValueFrom, query);
     }
 }

@@ -25,11 +25,20 @@ namespace MyShop.Api.Controllers
         }
 
         [HttpGet("{id:guid}")]
-        public async Task<ActionResult<OrderDto>> Get([FromRoute] GetOrder query)
+        public async Task<ActionResult<OrderDetailsDto>> Get([FromRoute] GetOrder query)
         {
-            var product = await _dispatcher.QueryAsync(query);
+            var order = await _dispatcher.QueryAsync(query);
 
-            return Single(product);
+            return Single(order);
+        }
+
+        [AdminAuth]
+        [HttpGet]
+        public async Task<IActionResult> Get([FromQuery] BrowseOrders query)
+        {
+            var orders = await _dispatcher.QueryAsync(query);
+
+            return Collection(orders);
         }
     }
 }
