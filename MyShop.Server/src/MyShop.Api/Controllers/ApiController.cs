@@ -7,6 +7,7 @@ using MyShop.Services.Dispatchers;
 
 namespace MyShop.Api.Controllers
 {
+    [JwtAuth]
     [ApiController]
     [Route("[controller]")]
     public abstract class ApiController : ControllerBase

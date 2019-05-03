@@ -31,6 +31,22 @@ namespace MyShop.Core.Domain.Carts
             Quantity += quantity;
         }
 
+        public void DecreaseQuantity(int quantity)
+        {
+            if (quantity <= 0)
+            {
+                throw new MyShopException("negative_quantity",
+                    "Quantity can not be negative.");
+            }
+            if (quantity > Quantity)
+            {
+                throw new MyShopException("invalid_quantity",
+                    "Quantity can not be greater than actula quantity.");
+            }
+
+            Quantity -= quantity;
+        }
+
         public void UpdateProduct(Product product)
         {
             ProductName = product.Name;

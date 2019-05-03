@@ -12,7 +12,6 @@ using MyShop.Services.Dispatchers;
 
 namespace MyShop.Api.Controllers
 {
-    [JwtAuth]
     public class CustomersController : ApiController
     {
         public CustomersController(IDispatcher dispatcher) : base(dispatcher)
@@ -28,6 +27,7 @@ namespace MyShop.Api.Controllers
             return CreatedAtAction(nameof(Get), new GetCustomer() { Id = command.Id }, null);
         }
 
+        [AllowAnonymous]
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<CustomerDto>> Get([FromRoute] GetCustomer query)
         {
@@ -35,5 +35,7 @@ namespace MyShop.Api.Controllers
 
             return Single(customer);
         }
+
+        // TODO: dodać logikę, do uzupełniania konta dla klienta jeśli jest już zarejestrowanym użytkownikiem.
     }
 }

@@ -7,16 +7,17 @@ using MyShop.Infrastructure.Authentication;
 using MyShop.Services.Orders.Dtos;
 using MyShop.Services.Orders.Queries;
 using System;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MyShop.Api.Controllers
 {
-    [JwtAuth]
     public class OrdersController : ApiController
     {
         public OrdersController(IDispatcher dispatcher) : base(dispatcher)
         {
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Post(CreateOrder command)
         {
@@ -25,6 +26,7 @@ namespace MyShop.Api.Controllers
             return CreatedAtAction(nameof(Get), new GetOrder() { Id = command.Id }, null);
         }
 
+        [AllowAnonymous]
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<OrderDetailsDto>> Get([FromRoute] GetOrder query)
         {
@@ -51,6 +53,7 @@ namespace MyShop.Api.Controllers
             return NoContent();
         }
 
+        [AllowAnonymous]
         [HttpPost("cancel/{id:Guid}")]
         public async Task<IActionResult> Put(Guid id)
         {

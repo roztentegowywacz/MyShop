@@ -33,6 +33,8 @@ namespace MyShop.Services.Orders.Handlers
             var order = new Order(command.Id, command.CustomerId, cart);
 
             await _ordersRepository.AddAsync(order);
+
+            cart.Clear();
         }
     }
 }

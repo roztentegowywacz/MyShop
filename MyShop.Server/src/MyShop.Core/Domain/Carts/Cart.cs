@@ -32,7 +32,7 @@ namespace MyShop.Core.Domain.Carts
             _items.Add(item);
         }
 
-        public void DeleteProduct(Guid productId)
+        public void DeleteProduct(Guid productId, int? quantity = null)
         {
             var item = GetCartItem(productId);
             if (item is null)
@@ -40,8 +40,16 @@ namespace MyShop.Core.Domain.Carts
                 throw new MyShopException("product_not_found",
                     $"Product with id: '{productId}' was not found.");
             }
+            if (quantity is null || quantity == item.Quantity)
+            {
+                _items.Remove(item);
+            }
+            else
+            {
+                item.DecreaseQuantity((int)quantity);
+                return;
+            }
 
-            _items.Remove(item);
         }
 
         public void UpdateProduct(Product product)

@@ -17,7 +17,7 @@ namespace MyShop.Core.Domain.Orders
             if (cart is null || !cart.Items.Any())
             {
                 throw new MyShopException("cennot_create_empty_order",
-                    $"Cannot create an order with invalid currency for customer with id: '{customerId}'.");
+                    $"Cannot create an order for customer with id: '{customerId}'.");
             }
 
             CustomerId = customerId;
