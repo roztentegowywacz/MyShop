@@ -144,3 +144,13 @@ Authorization: Bearer {{token}}
 ### APPROVE ORDER
 POST {{url}}/approve/{{orderId}}
 Authorization: Bearer: {{token}}
+Content-Type: application/json
+
+{
+    "id": "{{orderId}}",
+    "status": 1
+}
+
+### CANCEL ORDER
+POST {{url}}/cancel/{{orderId}}
+Authorization: Bearer: {{token}}

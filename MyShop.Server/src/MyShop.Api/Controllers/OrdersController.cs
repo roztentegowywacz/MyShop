@@ -42,10 +42,19 @@ namespace MyShop.Api.Controllers
             return Collection(orders);
         }
 
-        [HttpPost("approve/{id:guid}")]
+        [AdminAuth]
+        [HttpPost("status")]
+        public async Task<IActionResult> Put(ChangeOrderStatus command)
+        {
+            await _dispatcher.SendAsync(command);
+
+            return NoContent();
+        }
+
+        [HttpPost("cancel/{id:Guid}")]
         public async Task<IActionResult> Put(Guid id)
         {
-            await _dispatcher.SendAsync(new ApproveOrder(id));
+            await _dispatcher.SendAsync(new CancelOrder(id, UserId));
 
             return NoContent();
         }

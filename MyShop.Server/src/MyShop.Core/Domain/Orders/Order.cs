@@ -47,5 +47,62 @@ namespace MyShop.Core.Domain.Orders
                     break;
             }
         }
+
+        public void Complete()
+        {
+            if (Status != OrderStatus.Approved)
+            {
+                throw new MyShopException("cannot_complete_not_approved_order",
+                    $"Cannot complete not approved order with id: '{Id}'.");
+            }
+
+            switch (Status)
+            {
+                case OrderStatus.Canceled:
+                    throw new MyShopException("cannot_complete_canceled_order",
+                        $"Cannot complete a canceled order with id: '{Id}'.");
+                case OrderStatus.Revoked:
+                    throw new MyShopException("cannot_complete_revoked_order",
+                        $"Cannot complete a revoked order with id: '{Id}'.");
+                case OrderStatus.Completed:
+                    throw new MyShopException("cannot_complete_completed_order",
+                        $"Cannot complete an already completed order with id: '{Id}'.");
+                default:
+                    Status = OrderStatus.Completed;
+                    break;
+            }
+        }
+
+        public void Cancel()
+        {
+            switch (Status)
+            {
+                case OrderStatus.Canceled:
+                    throw new MyShopException("cannot_cancel_canceled_order",
+                        $"Cannot cancel an already canceled order with id: '{Id}'");
+                case OrderStatus.Revoked:
+                    throw new MyShopException("cannot_cancel_revoked_order",
+                        $"Cannot cancel a revoked order with id: '{Id}'.");
+                case OrderStatus.Completed:
+                    throw new MyShopException("cannot_cancel_completed_order",
+                        $"Cannot cancel a completed order with id: '{Id}'");
+                default:
+                    Status = OrderStatus.Canceled;
+                    break;
+            }
+        }
+
+        public void Revoke()
+        {
+            switch (Status)
+            {
+                case OrderStatus.Revoked:
+                    throw new MyShopException("cannot_revoke_revoked_order",
+                        $"Cannot revoke an already revoked order with id: '{Id}'");
+                default:
+                    Status = OrderStatus.Revoked;
+                    break;
+            }
+        }
     }
 }

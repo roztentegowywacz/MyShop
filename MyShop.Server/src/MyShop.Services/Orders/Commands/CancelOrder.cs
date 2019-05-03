@@ -3,14 +3,16 @@ using Newtonsoft.Json;
 
 namespace MyShop.Services.Orders.Commands
 {
-    public class ApproveOrder : ICommand
+    public class CancelOrder : ICommand
     {
         public Guid Id { get; }
+        public Guid CustomerId { get; }
 
         [JsonConstructor]
-        public ApproveOrder(Guid id)
+        public CancelOrder(Guid id, Guid customerId)
         {
             Id = id;
+            CustomerId = customerId;
         }
     }
 }
