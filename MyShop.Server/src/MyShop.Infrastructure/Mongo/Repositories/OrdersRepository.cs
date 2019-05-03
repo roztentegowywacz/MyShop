@@ -30,5 +30,8 @@ namespace MyShop.Infrastructure.Mongo.Repositories
         public async Task<PagedResults<Order>> BrowseAsync(IPagedFilterQuery<OrderStatus> query)
             => await _repository.BrowseAsync(
                                     o => o.Status == query.ValueFrom, query);
+
+        public async Task UpdateAsync(Order order)
+            => await _repository.UpdateAsync(order);
     }
 }

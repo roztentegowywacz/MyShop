@@ -140,3 +140,7 @@ Authorization: Bearer {{token}}
 ### BROWSE ORDER
 GET {{url}}/orders?Status=0
 Authorization: Bearer {{token}}
+
+### APPROVE ORDER
+POST {{url}}/approve/{{orderId}}
+Authorization: Bearer: {{token}}

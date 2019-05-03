@@ -10,5 +10,6 @@ namespace MyShop.Core.Domain.Orders.Repositories
         Task<bool> HasPendingOrderAsync(Guid customerId);
         Task<Order> GetAsync(Guid id);
         Task<PagedResults<Order>> BrowseAsync(IPagedFilterQuery<OrderStatus> query);
+        Task UpdateAsync(Order order);
     }
 }

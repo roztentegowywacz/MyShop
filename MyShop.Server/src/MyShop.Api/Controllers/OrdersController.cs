@@ -6,6 +6,7 @@ using MyShop.Infrastructure.Mvc;
 using MyShop.Infrastructure.Authentication;
 using MyShop.Services.Orders.Dtos;
 using MyShop.Services.Orders.Queries;
+using System;
 
 namespace MyShop.Api.Controllers
 {
@@ -39,6 +40,14 @@ namespace MyShop.Api.Controllers
             var orders = await _dispatcher.QueryAsync(query);
 
             return Collection(orders);
+        }
+
+        [HttpPost("approve/{id:guid}")]
+        public async Task<IActionResult> Put(Guid id)
+        {
+            await _dispatcher.SendAsync(new ApproveOrder(id));
+
+            return NoContent();
         }
     }
 }
