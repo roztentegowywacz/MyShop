@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using MyShop.Core.Domain.Carts;
+using MyShop.Core.Domain.Carts.Repositories;
 using MyShop.Core.Domain.Exceptions;
 using MyShop.Core.Domain.Orders;
 using MyShop.Core.Domain.Orders.Repositories;
@@ -14,12 +15,15 @@ namespace MyShop.Services.Orders.Handlers
     {
         private readonly IOrdersRepository _ordersRepository;
         private readonly IProductsRepository _productsRepository;
+        private readonly ICartsRepository _cartsRepository;
 
         public ChangeOrderStatusHandler(IOrdersRepository ordersRepository,
-            IProductsRepository productsRepository)
+            IProductsRepository productsRepository,
+            ICartsRepository cartsRepository)
         {
             _ordersRepository = ordersRepository;
             _productsRepository = productsRepository;
+            _cartsRepository = cartsRepository;
         }
 
         public async Task HandleAsync(ChangeOrderStatus command)
@@ -41,9 +45,13 @@ namespace MyShop.Services.Orders.Handlers
                 case OrderStatus.Completed:
                     // TODO: ten status w momencie, gdy zamówienie zostanie wysłane
                     order.Complete();
+                    var cart = await _cartsRepository.GetAsync(order.Cart.Id);
+                    cart.Clear();
+                    await _cartsRepository.UpdateAsync(cart);
                     break;
                 case OrderStatus.Revoked:
                     order.Revoke();
+                    // TODO: to samo dać dla cancel.
                     await ReleaseProductsAsync(order.Cart.Items);
                     break;
                 default:
