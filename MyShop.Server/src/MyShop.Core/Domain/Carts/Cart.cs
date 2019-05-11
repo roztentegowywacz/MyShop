@@ -15,6 +15,7 @@ namespace MyShop.Core.Domain.Carts
             set => _items = new HashSet<CartItem>(value);
         }
 
+        // TODO: wymyślić co w przypadku gdy ktoś chce kupić bez wcześniejszej rejestracji!
         public Cart(Guid userId) : base(userId)
         {
         }
