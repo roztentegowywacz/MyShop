@@ -10,6 +10,7 @@ namespace MyShop.Core.Domain.Products
         public string Vendor { get; private set; }
         public decimal Price { get; private set; }
         public int Quantity { get; private set; }
+        public bool IsDeleted { get; private set; }
         
 
         public Product(Guid id, string name, string description, string vendor,
@@ -81,6 +82,17 @@ namespace MyShop.Core.Domain.Products
 
             Quantity = quantity;
             SetUpdatedDate();
+        }
+
+        public void Delete()
+        {
+            if (!IsDeleted)
+            {
+                throw new MyShopException("product_already_deleted",
+                    "Product is aleready deleted.");
+            }
+
+            IsDeleted = true;
         }
     }
 }

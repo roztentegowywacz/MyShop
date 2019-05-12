@@ -21,11 +21,16 @@ namespace MyShop.Services.Products.Handlers
 
         public async Task HandleAsync(UpdateProduct command)
         {
-            var product = await _productRepository.GetAsync(command.Id);
+            var product = await _productRepository.GetAsync(command.Id, true);
             if (product is null)
             {
                 throw new NotFoundException("product_not_found",
                     $"Product with an id: '{command.Id}' was not found.");
+            }
+            if (product.IsDeleted)
+            {
+                throw new NotFoundException("product_is_deleted",
+                    $"Product with an id: '{command.Id}' is deleted.");   
             }
             
             var newProduct = new Product(command.Id, command.Name,

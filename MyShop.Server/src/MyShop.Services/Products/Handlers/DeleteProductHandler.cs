@@ -22,13 +22,16 @@ namespace MyShop.Services.Products.Handlers
         
         public async Task HandleAsync(DeleteProduct command)
         {
-            if (!await _productsRepository.ExistsAsync(command.Id))
+            var product = await _productsRepository.GetAsync(command.Id, true);
+            if (product is null)
             {
                 throw new NotFoundException("product_not_found",
-                    $"Product with id: '{command.Id}' was not found.");
+                    $"Product with an id: '{command.Id}' was not found.");
             }
 
-            await _productsRepository.DeleteAsync(command.Id);
+            product.Delete();
+            
+            await _productsRepository.UpdateAsync(product);
 
             var carts = await _cartsRepository.GetAllWithProducts(command.Id);
             foreach (var cart in carts)

@@ -56,7 +56,6 @@ namespace MyShop.Api.Controllers
         [HttpDelete("{id:guid}")]
         public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
-            // TODO: co gdy zostanie usunięty produkt, który ktoś ma w koszyku?
             await _dispatcher.SendAsync(new DeleteProduct(id));
 
             return NoContent();
