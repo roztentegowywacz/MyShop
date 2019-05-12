@@ -17,6 +17,8 @@ namespace MyShop.Api.Controllers
         {
         }
 
+        // TODO: Dodać logikę do opłacania zamówień.
+
         [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Post(CreateOrder command)

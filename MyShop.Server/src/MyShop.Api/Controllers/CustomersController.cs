@@ -37,5 +37,6 @@ namespace MyShop.Api.Controllers
         }
 
         // TODO: dodać logikę, do uzupełniania konta dla klienta jeśli jest już zarejestrowanym użytkownikiem.
+        // update?
     }
 }
