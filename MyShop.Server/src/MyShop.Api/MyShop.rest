@@ -22,6 +22,7 @@ Content-Type: application/json
 
 ### BROWSE products
 GET {{url}}/products/
+Authorization: Bearer {{token}}
 
 
 ### GET product with specific id
