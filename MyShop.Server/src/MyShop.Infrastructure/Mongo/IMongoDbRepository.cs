@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using MyShop.Core.Domain;
@@ -14,6 +15,7 @@ namespace MyShop.Infrastructure.Mongo
         Task<PagedResults<TEntity>> BrowseAsync<TQuery>(Expression<Func<TEntity, bool>> predicate,
             TQuery query) where TQuery : IPagedQuery;
         Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> predicate);
+        Task<IEnumerable<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate);
         Task UpdateAsync(TEntity entity);
         Task DeleteAsync(Guid id);
     }

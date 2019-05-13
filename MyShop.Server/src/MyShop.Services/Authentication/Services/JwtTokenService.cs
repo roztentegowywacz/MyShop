@@ -8,6 +8,7 @@ using MyShop.Core.Domain.Authentication;
 using MyShop.Infrastructure.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Caching.Distributed;
+using System.Linq;
 
 namespace MyShop.Services.Authentication.Services
 {
@@ -22,10 +23,11 @@ namespace MyShop.Services.Authentication.Services
             ClaimTypes.Role,
         };
 
+        private readonly JwtSecurityTokenHandler _jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
         private readonly JwtOptions _options;
         private readonly SigningCredentials _signingCredentials;
 
-        public JwtTokenService(JwtOptions options)
+        public JwtTokenService(JwtOptions options, IHttpContextAccessor httpContextAccessor)
         {
             _options = options;
             var issuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_options.SecretKey));

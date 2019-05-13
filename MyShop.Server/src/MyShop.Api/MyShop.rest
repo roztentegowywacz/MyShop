@@ -1,25 +1,29 @@
 @url = https://localhost:5001
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmZDhiZmE1ZWI1MjY0Zjk1OGQ4MGRhYTBlODQzMmExNSIsInVuaXF1ZV9uYW1lIjoiZmQ4YmZhNWViNTI2NGY5NThkODBkYWEwZTg0MzJhMTUiLCJqdGkiOiJkYzI1NzEwMy05NzRhLTRhOTQtYTdmZS1lNjhiMTgxMTIyNWEiLCJpYXQiOiIxNTU0OTIxNTM1NTYzIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoidXNlciIsIm5iZiI6MTU1NDkyMTUzNSwiZXhwIjoxNTU0OTIxNTk1LCJpc3MiOiJNeVNob3AifQ.T5VDuUlNJWPEk5aTF2a0hsTC3iS-IoXngHSxyMSbFD4
-@refreshToken = AQAAAAEAACcQAAAAEG4cyi369kSpGEogMnwS/pv3TF3P3bWHZSadhkVazYJek477aP33TGqhiUM2tTsSDg==
-@myId = fd8bfa5e-b526-4f95-8d80-daa0e8432a15
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzNTZhZGM2MGIwNTk0MmE4OTNjNDQzYjc4NjE1MDdlNyIsInVuaXF1ZV9uYW1lIjoiMzU2YWRjNjBiMDU5NDJhODkzYzQ0M2I3ODYxNTA3ZTciLCJqdGkiOiIyZDI3ODFlNy04ZTk0LTRiZWMtODk1OC1jY2RlNzZiMDZmOTUiLCJpYXQiOiIxNTU2MzA1MDgzNDI5IiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiYWRtaW4iLCJuYmYiOjE1NTYzMDUwODMsImV4cCI6MTU1NjkwNTA4MywiaXNzIjoiTXlTaG9wIn0.ZV4Kf-6I5z0i98LCv0N-Y7krUHkMwl7KxaiNlXbGQlE
+@refreshToken = AQAAAAEAACcQAAAAECmBGr9F+Rj9UJ6/hEZEQvI4Gg3Q6GpB9CdX6VGjvHQ8SC3SF8hsYMUF4YZOZ4Bc1Q==
+@myId = 356adc60-b059-42a8-93c4-43b7861507e7
+@productId = 71a726d4-a400-45ea-8787-9c1dfd230de1
+@customerId = {{myId}}
+@cartId = {{myId}}
+@orderId = 68a98f4d-0038-465c-8526-5312b5786551
 
 ### CREATE new product
 POST {{url}}/products
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-    "name": "very new product",
+    "name": "aaaaa",
     "description": "desc",
     "vendor": "vendor",
-    "price": 1,
-    "quantity": 1
+    "price": 11.11,
+    "quantity": 50
 }
 
 ### BROWSE products
 GET {{url}}/products/
 Authorization: Bearer {{token}}
 
-@productId = d92c3532-d103-4666-9cfb-f05416063ea1
 
 ### GET product with specific id
 GET {{url}}/products/{{productId}}
@@ -27,18 +31,20 @@ GET {{url}}/products/{{productId}}
 
 ### UPDATE product with specific id
 PUT {{url}}/products/{{productId}}
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-    "name": "Nowa nazwa",
-    "description": "desc",
+    "name": "po update",
+    "description": "nowe super!!",
     "vendor": "vendor",
-    "price": 1,
-    "quantity": 1
+    "price": 11.11,
+    "quantity": 100
 }
 
 ### DELETE product
 DELETE {{url}}/products/{{productId}}
+Authorization: Bearer {{token}}
 
 
 ### SIGN UP
@@ -80,3 +86,72 @@ Content-Type: application/json
     "refreshToken": "{{refreshToken}}",
     "userId": "{{myId}}"
 }
+
+### CREATE CUSTOMER
+POST {{url}}/customers
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "firstName": "Tomasz",
+    "lastName": "Klag",
+    "address": "Nieznana 1/20"
+}
+
+### GET CUSTOMER
+GET {{url}}/customers/{{customerId}}
+Authorization: Bearer {{token}}
+
+### ADD PRODUCT TO CART
+POST {{url}}/carts/items
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "customerId" : "{{customerId}}",
+    "productId": "{{productId}}",
+    "quantity": 12
+}
+
+### DELETE PRODUCT FROM CART
+DELETE {{url}}/carts/items/{{productId}}
+Authorization: Bearer {{token}}
+
+### GET CART
+GET {{url}}/carts/my
+Authorization: Bearer {{token}}
+
+### CLEAR CART
+POST  {{url}}/carts/clear
+Authorization: Bearer {{token}}
+
+### CREATE ORDER
+POST {{url}}/orders
+Authorization:  Bearer {{token}}
+Content-Type: application/json
+
+{
+    "customerId": "{{customerId}}"
+}
+
+### GET ORDER
+GET {{url}}/orders/{{orderId}}
+Authorization: Bearer {{token}}
+
+### BROWSE ORDER
+GET {{url}}/orders?Status=0
+Authorization: Bearer {{token}}
+
+### APPROVE ORDER
+POST {{url}}/approve/{{orderId}}
+Authorization: Bearer: {{token}}
+Content-Type: application/json
+
+{
+    "id": "{{orderId}}",
+    "status": 1
+}
+
+### CANCEL ORDER
+POST {{url}}/cancel/{{orderId}}
+Authorization: Bearer: {{token}}

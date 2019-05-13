@@ -2,12 +2,14 @@ using System;
 using Microsoft.AspNetCore.Mvc;
 using MyShop.Core.Types;
 using MyShop.Infrastructure.Authentication;
+using MyShop.Services.Authentication.Services;
 using MyShop.Services.Dispatchers;
 
 namespace MyShop.Api.Controllers
 {
-    [Route("[controller]")]
+    [JwtAuth]
     [ApiController]
+    [Route("[controller]")]
     public abstract class ApiController : ControllerBase
     {
         protected readonly IDispatcher _dispatcher;
@@ -42,5 +44,11 @@ namespace MyShop.Api.Controllers
 
             return Ok(pagedResults);
         }
+
+        protected Guid UserId
+            => string.IsNullOrWhiteSpace(User?.Identity?.Name) ?
+            Guid.NewGuid() :
+            Guid.Parse(User.Identity.Name);
+
     }
 }

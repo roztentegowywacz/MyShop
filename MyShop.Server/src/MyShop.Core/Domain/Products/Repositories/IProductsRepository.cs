@@ -7,10 +7,8 @@ namespace MyShop.Core.Domain.Products.Repositories
     public interface IProductsRepository
     {
         Task AddAsync(Product product);
-        Task<Product> GetAsync(Guid id);
+        Task<Product> GetAsync(Guid id, bool evenIsDeleted = false);
         Task<PagedResults<Product>> BrowseAsync(IPagedFilterQuery<decimal> query);
-        Task<bool> ExistsAsync(Guid id);
         Task UpdateAsync(Product product);
-        Task DeleteAsync(Guid id);
     }
 }

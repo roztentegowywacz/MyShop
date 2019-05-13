@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using MongoDB.Driver;
@@ -32,6 +33,9 @@ namespace MyShop.Infrastructure.Mongo
 
         public async Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> predicate)
             => await Collection.Find(predicate).AnyAsync();
+
+        public async Task<IEnumerable<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate)
+            => await Collection.Find(predicate).ToListAsync();
 
         public async Task UpdateAsync(TEntity entity)
             => await Collection.ReplaceOneAsync(e => e.Id == entity.Id, entity);

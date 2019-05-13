@@ -8,6 +8,7 @@ namespace MyShop.Services.Products.Queries
     {
         public int Page { get; set; } = 1;
         public int ResultsPerPage { get; set; } = 10;
+        // TODO: implement order and sort by logic
         public string OrderBy { get; set; }
         public string SortOrder { get; set; }
 

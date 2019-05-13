@@ -11,6 +11,7 @@ namespace MyShop.Infrastructure.Mongo
     {
         public static void RegisterConventions()
         {
+            BsonSerializer.RegisterSerializer(typeof(Guid), new GuidSerializer());
             BsonSerializer.RegisterSerializer(typeof(decimal), new DecimalSerializer(BsonType.Decimal128));
             BsonSerializer.RegisterSerializer(typeof(decimal?), new NullableSerializer<decimal>(new DecimalSerializer(BsonType.Decimal128)));
             ConventionRegistry.Register("Conventions", new MongoDbConventions(), x => true);
