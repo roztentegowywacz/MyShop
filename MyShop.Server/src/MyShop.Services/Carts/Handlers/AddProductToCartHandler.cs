@@ -39,8 +39,13 @@ namespace MyShop.Services.Carts.Handlers
                     $"Not enough products in stock: '{command.ProductId}'.");
             }
 
-            // TODO: sprawdzić czy jest cart??
             var cart = await _cartsRepository.GetAsync(command.CustomerId);
+            if (cart is null)
+            {
+                throw new MyShopException("cart_not_found",
+                    $"Cart: '{command.CustomerId}' was not found.");
+            }
+
             cart.AddProduct(product, command.Quantity);
             await _cartsRepository.UpdateAsync(cart);
         }
