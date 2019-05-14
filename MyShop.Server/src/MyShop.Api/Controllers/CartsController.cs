@@ -16,6 +16,14 @@ namespace MyShop.Api.Controllers
         public CartsController(IDispatcher dispatcher) : base(dispatcher)
         { }
 
+        [HttpPost("items/fill-cart")]
+        public async Task<IActionResult> Post(FillCart command)
+        {
+            await _dispatcher.SendAsync(command);
+
+            return CreatedAtAction(nameof(Get), new GetCart() { Id = command.CustomerId }, null);            
+        }
+
         [HttpPost("items")]
         public async Task<IActionResult> Post(AddProductToCart command)
         {
