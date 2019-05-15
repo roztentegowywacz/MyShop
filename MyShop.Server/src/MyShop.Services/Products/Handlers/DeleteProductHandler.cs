@@ -1,9 +1,8 @@
 using System.Threading.Tasks;
-using MyShop.Core.Domain;
 using MyShop.Core.Domain.Carts.Repositories;
 using MyShop.Core.Domain.Exceptions;
-using MyShop.Core.Domain.Products;
 using MyShop.Core.Domain.Products.Repositories;
+using MyShop.Infrastructure.Mvc;
 using MyShop.Services.Products.Commands;
 
 namespace MyShop.Services.Products.Handlers
@@ -23,11 +22,7 @@ namespace MyShop.Services.Products.Handlers
         public async Task HandleAsync(DeleteProduct command)
         {
             var product = await _productsRepository.GetAsync(command.Id, true);
-            if (product is null)
-            {
-                throw new NotFoundException("product_not_found",
-                    $"Product with an id: '{command.Id}' was not found.");
-            }
+            product.NullCheck(ErrorCodes.product_not_found);
 
             product.Delete();
             

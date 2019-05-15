@@ -1,4 +1,5 @@
 using System;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using MyShop.Core.Domain.Products;
 using MyShop.Core.Domain.Products.Repositories;
@@ -19,7 +20,18 @@ namespace MyShop.Infrastructure.Mongo.Repositories
             => await _repository.AddAsync(product);
 
         public async Task<Product> GetAsync(Guid id, bool evenIsDeleted = false)
-            => await _repository.GetAsync(p => p.Id == id && evenIsDeleted ? true : !p.IsDeleted);
+        {
+            Expression<Func<Product, bool>> predicate; 
+            if (evenIsDeleted)
+            {
+                predicate = p => p.Id == id && !p.IsDeleted;
+            }
+            else 
+            {
+                predicate = p => p.Id == id; 
+            }
+            return await _repository.GetAsync(predicate);
+        }
 
         public async Task<PagedResults<Product>> BrowseAsync(IPagedFilterQuery<decimal> query)
             => await _repository.BrowseAsync(

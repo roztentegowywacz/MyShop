@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using MyShop.Core.Domain.Carts.Repositories;
 using MyShop.Core.Domain.Exceptions;
 using MyShop.Core.Domain.Products.Repositories;
+using MyShop.Infrastructure.Mvc;
 using MyShop.Services.Carts.Commands;
 
 namespace MyShop.Services.Carts.Handlers
@@ -22,29 +23,19 @@ namespace MyShop.Services.Carts.Handlers
         {
             if (command.Quantity <= 0)
             {
-                throw new MyShopException("invalid_quantity",
-                    $"Invalid quantity: '{command.Quantity}'. Quantity can not be negative.");
+                throw new MyShopException(ErrorCodes.negative_quantity);
             }
 
             var product = await _productsRepository.GetAsync(command.ProductId);
-            if (product is null)
-            {
-                throw new MyShopException("product_not_found",
-                    $"Product: '{command.ProductId}' was not found.");
-            }
+            product.NullCheck(ErrorCodes.product_not_found);
 
             if (product.Quantity < command.Quantity)
             {
-                throw new MyShopException("not_enough_products_in_stock",
-                    $"Not enough products in stock: '{command.ProductId}'.");
+                throw new MyShopException(ErrorCodes.not_enough_products_in_stock);
             }
 
             var cart = await _cartsRepository.GetAsync(command.CustomerId);
-            if (cart is null)
-            {
-                throw new MyShopException("cart_not_found",
-                    $"Cart: '{command.CustomerId}' was not found.");
-            }
+            cart.NullCheck(ErrorCodes.cart_not_found);
 
             cart.AddProduct(product, command.Quantity);
             await _cartsRepository.UpdateAsync(cart);

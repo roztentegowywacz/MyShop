@@ -3,10 +3,12 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Security.Claims;
+using System.Threading.Tasks;
 using Autofac;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using MyShop.Core.Domain;
+using MyShop.Core.Domain.Exceptions;
 using MyShop.Core.Domain.Identity;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -68,5 +70,19 @@ namespace MyShop.Infrastructure.Mvc
 
             return model;
         }
+
+        public static void NullCheck<T>(this T obj, ErrorCodes errorCode) where T: class
+        {
+            if (obj == null)
+                throw new MyShopException(errorCode);
+        }
+
+        public static string GetErrorMessage(this Enum value)
+            => value.GetType()
+                    .GetMember(value.ToString())
+                    .FirstOrDefault()
+                    ?.GetCustomAttribute<ErrorMessageAttribute>()
+                    ?.Message;
+                
     }
 }

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using MyShop.Core.Domain.Carts;
@@ -7,6 +6,7 @@ using MyShop.Core.Domain.Exceptions;
 using MyShop.Core.Domain.Orders;
 using MyShop.Core.Domain.Orders.Repositories;
 using MyShop.Core.Domain.Products.Repositories;
+using MyShop.Infrastructure.Mvc;
 using MyShop.Services.Orders.Commands;
 
 namespace MyShop.Services.Orders.Handlers
@@ -29,11 +29,7 @@ namespace MyShop.Services.Orders.Handlers
         public async Task HandleAsync(ChangeOrderStatus command)
         {
             var order = await _ordersRepository.GetAsync(command.Id);
-            if (order is null)
-            {
-                throw new MyShopException("order_not_found",
-                    $"Order with id: '{command.Id}' was not found.");
-            }
+            order.NullCheck(ErrorCodes.order_not_found);
 
             switch (command.Status)
             {
@@ -55,8 +51,7 @@ namespace MyShop.Services.Orders.Handlers
                     await ReleaseProductsAsync(order.Cart.Items);
                     break;
                 default:
-                    throw new MyShopException("bad_order_status",
-                        $"Given order status: '{command.Status}' not exists.");
+                    throw new MyShopException(ErrorCodes.bad_order_status);
             }
 
             await _ordersRepository.UpdateAsync(order);
@@ -74,11 +69,7 @@ namespace MyShop.Services.Orders.Handlers
             foreach (var item in items)
             {
                 var product = await _productsRepository.GetAsync(item.ProductId);
-                if (product is null)
-                {
-                    throw new MyShopException("product_not_found",
-                        $"Product with id: '{product.Id}' was not found.");
-                }
+                product.NullCheck(ErrorCodes.product_not_found);
 
                 product.SetQuantity(product.Quantity + (int)setMarker * item.Quantity);
                 await _productsRepository.UpdateAsync(product);

@@ -32,14 +32,14 @@ namespace MyShop.Infrastructure.Mvc
             switch(exception)
             {
                 case MyShopException e:
-                    errorCode = e.Code;
-                    message = e.Message;
+                    errorCode = Enum.GetName(typeof(ErrorCodes), e.Code);
+                    message = e.Code.GetErrorMessage();
                     statusCode = HttpStatusCode.BadRequest;
                     break;
                 
                 case NotFoundException e:
-                    errorCode = e.Code;
-                    message = e.Message;
+                    errorCode = Enum.GetName(typeof(ErrorCodes), e.Code);
+                    message = e.Code.GetErrorMessage();
                     statusCode = HttpStatusCode.NotFound;
                     break;
             }

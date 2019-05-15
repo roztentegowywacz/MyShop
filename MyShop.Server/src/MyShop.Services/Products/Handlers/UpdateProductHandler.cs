@@ -3,6 +3,7 @@ using MyShop.Core.Domain.Carts.Repositories;
 using MyShop.Core.Domain.Exceptions;
 using MyShop.Core.Domain.Products;
 using MyShop.Core.Domain.Products.Repositories;
+using MyShop.Infrastructure.Mvc;
 using MyShop.Services.Products.Commands;
 
 namespace MyShop.Services.Products.Handlers
@@ -22,15 +23,11 @@ namespace MyShop.Services.Products.Handlers
         public async Task HandleAsync(UpdateProduct command)
         {
             var product = await _productRepository.GetAsync(command.Id, true);
-            if (product is null)
-            {
-                throw new NotFoundException("product_not_found",
-                    $"Product with an id: '{command.Id}' was not found.");
-            }
+            product.NullCheck(ErrorCodes.product_not_found);
+            
             if (product.IsDeleted)
             {
-                throw new NotFoundException("product_is_deleted",
-                    $"Product with an id: '{command.Id}' is deleted.");   
+                throw new NotFoundException(ErrorCodes.product_is_deleted);   
             }
             
             var newProduct = new Product(command.Id, command.Name,

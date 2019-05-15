@@ -29,8 +29,7 @@ namespace MyShop.Core.Domain.Identity
         {
             if (!EmailRegex.IsMatch(email))
             {
-                throw new MyShopException("invalid_email_address",
-                    $"Invalid email: '{email}'.");
+                throw new MyShopException(ErrorCodes.invalid_email);
             }
 
             Email = email.Trim().ToLowerInvariant();
@@ -41,8 +40,7 @@ namespace MyShop.Core.Domain.Identity
         {
             if (!Identity.Role.IsValid(role))
             {
-                throw new MyShopException("invalid_role",
-                    $"Invalid role: '{role}'.");
+                throw new MyShopException(ErrorCodes.invalid_role);
             }
 
             Role = role.Trim().ToLowerInvariant();
@@ -53,8 +51,7 @@ namespace MyShop.Core.Domain.Identity
         {
             if (string.IsNullOrWhiteSpace(password))
             {
-                throw new MyShopException("invalid_password",
-                    "Password can not be empty.");
+                throw new MyShopException(ErrorCodes.invalid_password);
             }
 
             PasswordHash = passwordHasher.HashPassword(this, password);

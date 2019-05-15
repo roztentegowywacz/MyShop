@@ -3,6 +3,7 @@ using MyShop.Core.Domain.Authentication;
 using MyShop.Core.Domain.Authentication.Repositories;
 using MyShop.Core.Domain.Exceptions;
 using MyShop.Core.Domain.Identity.Repositories;
+using MyShop.Infrastructure.Mvc;
 using MyShop.Services.Authentication.Commands;
 using MyShop.Services.Authentication.Services;
 
@@ -27,18 +28,10 @@ namespace MyShop.Services.Authentication.Handlers
         public async Task<JsonWebToken> HandleAsync(RefreshAccessToken command)
         {
             var refreshToken = await _refreshTokensRepository.GetAsync(command.Token);
-            if (refreshToken is null)
-            {
-                throw new MyShopException("refresh_token_not_found",
-                    "Refresh token was not found");
-            }
+            refreshToken.NullCheck(ErrorCodes.refresh_token_not_found);
 
             var user = await _usersRepository.GetAsync(refreshToken.UserId);
-            if (user is null)
-            {
-                throw new MyShopException("user_not_found",
-                    $"User: '{refreshToken.UserId}' was not found.");
-            }
+            user.NullCheck(ErrorCodes.user_not_found);
 
             var jwt = _jwtTokenService.CreateToken(user.Id, user.Role);
             jwt.SetRefreshToken(refreshToken.Token);

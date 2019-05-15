@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using MyShop.Core.Domain.Customers.Repositories;
 using MyShop.Core.Domain.Exceptions;
 using MyShop.Core.Domain.Orders.Repositories;
+using MyShop.Infrastructure.Mvc;
 using MyShop.Services.Customers.Dtos;
 using MyShop.Services.Orders.Dtos;
 using MyShop.Services.Orders.Queries;
@@ -24,11 +25,7 @@ namespace MyShop.Services.Orders.Handlers
         public async Task<OrderDetailsDto> HandleAsync(GetOrder query)
         {
             var order = await _ordersRepository.GetAsync(query.Id);
-            if (order is null)
-            {
-                throw new MyShopException("order_not_found",
-                    $"Order with id: '{query.Id}' was not found.");
-            }
+            order.NullCheck(ErrorCodes.order_not_found);
 
             var customer = await _customersRepository.GetAsync(order.CustomerId);
 

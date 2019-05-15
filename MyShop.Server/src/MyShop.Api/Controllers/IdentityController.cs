@@ -17,6 +17,7 @@ namespace MyShop.Api.Controllers
         public IdentityController(IDispatcher dispatcher) : base(dispatcher)
         { }
 
+        [AllowAnonymous]
         [HttpPost("sign-up")]
         public async Task<IActionResult> SignUp(SignUp command)
         {
@@ -25,6 +26,7 @@ namespace MyShop.Api.Controllers
             return Ok();
         }
 
+        [AllowAnonymous]
         [HttpPost("sign-in")]
         public async Task<ActionResult<JsonWebToken>> SignIn(SignIn command)
         {
@@ -33,7 +35,6 @@ namespace MyShop.Api.Controllers
             return Ok(jwt);
         }
 
-        [JwtAuth]
         [HttpGet("me")]
         public IActionResult Get()
         {

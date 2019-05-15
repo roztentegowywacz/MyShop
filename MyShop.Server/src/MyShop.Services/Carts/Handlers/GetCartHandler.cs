@@ -2,6 +2,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using MyShop.Core.Domain.Carts.Repositories;
 using MyShop.Core.Domain.Exceptions;
+using MyShop.Infrastructure.Mvc;
 using MyShop.Services.Carts.Dtos;
 using MyShop.Services.Carts.Queries;
 
@@ -19,11 +20,7 @@ namespace MyShop.Services.Carts.Handlers
         public async Task<CartDto> HandleAsync(GetCart query)
         {
             var cart = await _cartsRepository.GetAsync(query.Id);
-            if (cart is null)
-            {
-                throw new NotFoundException("cart_not_found",
-                    $"Cart with an id: '{query.Id}' was not found.");
-            }
+            cart.NullCheck(ErrorCodes.cart_not_found);
 
             return new CartDto()
             {

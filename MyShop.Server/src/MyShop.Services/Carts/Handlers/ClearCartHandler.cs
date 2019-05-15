@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using MyShop.Core.Domain.Carts.Repositories;
 using MyShop.Core.Domain.Exceptions;
+using MyShop.Infrastructure.Mvc;
 using MyShop.Services.Carts.Commands;
 
 namespace MyShop.Services.Carts.Handlers
@@ -17,11 +18,7 @@ namespace MyShop.Services.Carts.Handlers
         public async Task HandleAsync(ClearCart command)
         {
             var cart = await _cartRepository.GetAsync(command.CustomerId);
-            if (cart is null)
-            {
-                throw new NotFoundException("cart_not_found",
-                    $"Cart with an id: '{command.CustomerId}' was not found.");
-            }
+            cart.NullCheck(ErrorCodes.cart_not_found);
 
             cart.Clear();
             await _cartRepository.UpdateAsync(cart);
