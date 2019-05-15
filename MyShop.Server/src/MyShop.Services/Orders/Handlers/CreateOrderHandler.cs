@@ -21,7 +21,7 @@ namespace MyShop.Services.Orders.Handlers
 
         public async Task HandleAsync(CreateOrder command)
         {
-            // TODO: zmienić logikę, bo teraz klient może mimeć tylko jedno aktywne zamówineie.
+            // TODO: zmienić logikę, bo teraz klient może mimeć tylko jedno aktywne zamówineie. Zrobi unikatowe id koszyka.
             // TODO: żeby złożyć zamównienie to klient musi uzupełnić swoje dane.
             if (await _ordersRepository.HasPendingOrderAsync(command.CustomerId))
             {
