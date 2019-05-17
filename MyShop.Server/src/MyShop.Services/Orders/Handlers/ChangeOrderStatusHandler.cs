@@ -29,7 +29,7 @@ namespace MyShop.Services.Orders.Handlers
         public async Task HandleAsync(ChangeOrderStatus command)
         {
             var order = await _ordersRepository.GetAsync(command.Id);
-            order.NullCheck(ErrorCodes.order_not_found);
+            order.NullCheck(ErrorCodes.order_not_found, command.Id);
 
             switch (command.Status)
             {
@@ -69,7 +69,7 @@ namespace MyShop.Services.Orders.Handlers
             foreach (var item in items)
             {
                 var product = await _productsRepository.GetAsync(item.ProductId);
-                product.NullCheck(ErrorCodes.product_not_found);
+                product.NullCheck(ErrorCodes.product_not_found, item.ProductId);
 
                 product.SetQuantity(product.Quantity + (int)setMarker * item.Quantity);
                 await _productsRepository.UpdateAsync(product);

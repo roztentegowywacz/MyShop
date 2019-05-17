@@ -20,7 +20,7 @@ namespace MyShop.Services.Carts.Handlers
         public async Task<CartDto> HandleAsync(GetCart query)
         {
             var cart = await _cartsRepository.GetAsync(query.Id);
-            cart.NullCheck(ErrorCodes.cart_not_found);
+            cart.NullCheck(ErrorCodes.cart_not_found, query.Id);
 
             return new CartDto()
             {

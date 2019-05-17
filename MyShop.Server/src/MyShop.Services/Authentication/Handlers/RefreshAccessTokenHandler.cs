@@ -28,10 +28,13 @@ namespace MyShop.Services.Authentication.Handlers
         public async Task<JsonWebToken> HandleAsync(RefreshAccessToken command)
         {
             var refreshToken = await _refreshTokensRepository.GetAsync(command.Token);
-            refreshToken.NullCheck(ErrorCodes.refresh_token_not_found);
+            if (refreshToken is null)
+            {
+                throw new NotFoundException(ErrorCodes.refresh_token_not_found);
+            }
 
             var user = await _usersRepository.GetAsync(refreshToken.UserId);
-            user.NullCheck(ErrorCodes.user_not_found);
+            user.NullCheck(ErrorCodes.user_not_found, refreshToken.UserId);
 
             var jwt = _jwtTokenService.CreateToken(user.Id, user.Role);
             jwt.SetRefreshToken(refreshToken.Token);

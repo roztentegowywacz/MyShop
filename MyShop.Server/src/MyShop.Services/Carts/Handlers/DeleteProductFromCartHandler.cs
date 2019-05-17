@@ -19,7 +19,7 @@ namespace MyShop.Services.Carts.Handlers
         public async Task HandleAsync(DeleteProductFromCart command)
         {
             var cart = await _cartsRepository.GetAsync(command.CustomerId);
-            cart.NullCheck(ErrorCodes.cart_not_found);
+            cart.NullCheck(ErrorCodes.cart_not_found, command.CustomerId);
             
             if (cart.Items.SingleOrDefault(p => p.ProductId == command.ProductId).Quantity > command.Quantity)
             {

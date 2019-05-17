@@ -5,6 +5,7 @@ namespace MyShop.Core.Domain.Exceptions
     public class NotFoundException : Exception
     {
         public ErrorCodes? Code { get; }
+        public Guid? EntityId { get; }
 
         public NotFoundException()
         {
@@ -15,25 +16,31 @@ namespace MyShop.Core.Domain.Exceptions
             Code = code;
         }
 
-        public NotFoundException(string message, params object[] args)
-            : this(null, message, args)
+        public NotFoundException(ErrorCodes code, Guid entityId)
+            : this(code)
         {
+            EntityId = entityId;
         }
 
-        public NotFoundException(ErrorCodes code, string message, params object[] args) 
-            : this(null, code, message, args)
-        {
-        }
+        // public NotFoundException(string message, params object[] args)
+        //     : this(null, message, args)
+        // {
+        // }
 
-        public NotFoundException(Exception innerException, string message, params object[] args)
-            : this(innerException, null, message, args)
-        {
-        }
+        // public NotFoundException(ErrorCodes code, string message, params object[] args) 
+        //     : this(null, code, message, args)
+        // {
+        // }
 
-        public NotFoundException(Exception innerException, ErrorCodes? code, string message, params object[] args)
-            : base(string.Format(message, args), innerException)
-        {
-            Code = code;
-        }
+        // public NotFoundException(Exception innerException, string message, params object[] args)
+        //     : this(innerException, null, message, args)
+        // {
+        // }
+
+        // public NotFoundException(Exception innerException, ErrorCodes? code, string message, params object[] args)
+        //     : base(string.Format(message, args), innerException)
+        // {
+        //     Code = code;
+        // }
     }
 }

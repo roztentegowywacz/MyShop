@@ -19,7 +19,7 @@ namespace MyShop.Services.Products.Handlers
         public async Task<ProductDto> HandleAsync(GetProduct query)
         {
             var product = await _productsRepository.GetAsync(query.Id);
-            product.NullCheck(ErrorCodes.product_not_found);
+            product.NullCheck(ErrorCodes.product_not_found, query.Id);
 
             return new ProductDto()
             {

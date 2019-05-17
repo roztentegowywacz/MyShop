@@ -18,7 +18,7 @@ namespace MyShop.Services.Carts.Handlers
         public async Task HandleAsync(ClearCart command)
         {
             var cart = await _cartRepository.GetAsync(command.CustomerId);
-            cart.NullCheck(ErrorCodes.cart_not_found);
+            cart.NullCheck(ErrorCodes.cart_not_found, command.CustomerId);
 
             cart.Clear();
             await _cartRepository.UpdateAsync(cart);

@@ -19,7 +19,7 @@ namespace MyShop.Services.Customers.Handlers
         public async Task<CustomerDto> HandleAsync(GetCustomer query)
         {
             var customer = await _customersRepository.GetAsync(query.Id);
-            customer.NullCheck(ErrorCodes.customer_not_found);
+            customer.NullCheck(ErrorCodes.customer_not_found, query.Id);
 
             return new CustomerDto()
             {

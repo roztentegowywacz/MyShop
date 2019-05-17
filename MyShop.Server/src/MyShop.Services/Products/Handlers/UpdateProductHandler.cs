@@ -23,7 +23,7 @@ namespace MyShop.Services.Products.Handlers
         public async Task HandleAsync(UpdateProduct command)
         {
             var product = await _productRepository.GetAsync(command.Id, true);
-            product.NullCheck(ErrorCodes.product_not_found);
+            product.NullCheck(ErrorCodes.product_not_found, command.Id);
             
             if (product.IsDeleted)
             {

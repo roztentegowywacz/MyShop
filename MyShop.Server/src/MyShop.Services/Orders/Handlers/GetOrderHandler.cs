@@ -25,7 +25,7 @@ namespace MyShop.Services.Orders.Handlers
         public async Task<OrderDetailsDto> HandleAsync(GetOrder query)
         {
             var order = await _ordersRepository.GetAsync(query.Id);
-            order.NullCheck(ErrorCodes.order_not_found);
+            order.NullCheck(ErrorCodes.order_not_found, query.Id);
 
             var customer = await _customersRepository.GetAsync(order.CustomerId);
 

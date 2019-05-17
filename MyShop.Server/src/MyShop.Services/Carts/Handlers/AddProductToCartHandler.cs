@@ -27,7 +27,7 @@ namespace MyShop.Services.Carts.Handlers
             }
 
             var product = await _productsRepository.GetAsync(command.ProductId);
-            product.NullCheck(ErrorCodes.product_not_found);
+            product.NullCheck(ErrorCodes.product_not_found, command.ProductId);
 
             if (product.Quantity < command.Quantity)
             {
@@ -35,7 +35,7 @@ namespace MyShop.Services.Carts.Handlers
             }
 
             var cart = await _cartsRepository.GetAsync(command.CustomerId);
-            cart.NullCheck(ErrorCodes.cart_not_found);
+            cart.NullCheck(ErrorCodes.cart_not_found, command.CustomerId);
 
             cart.AddProduct(product, command.Quantity);
             await _cartsRepository.UpdateAsync(cart);

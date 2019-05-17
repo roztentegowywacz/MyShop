@@ -39,7 +39,10 @@ namespace MyShop.Infrastructure.Mvc
                 
                 case NotFoundException e:
                     errorCode = Enum.GetName(typeof(ErrorCodes), e.Code);
-                    message = e.Code.GetErrorMessage();
+                    var requestedId = e.EntityId is null ? 
+                        String.Empty : 
+                        $" Requested id: '{e.EntityId}'.";
+                    message = e.Code.GetErrorMessage() + requestedId;
                     statusCode = HttpStatusCode.NotFound;
                     break;
             }

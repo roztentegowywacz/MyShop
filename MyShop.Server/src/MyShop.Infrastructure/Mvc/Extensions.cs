@@ -71,10 +71,10 @@ namespace MyShop.Infrastructure.Mvc
             return model;
         }
 
-        public static void NullCheck<T>(this T obj, ErrorCodes errorCode) where T: class
+        public static void NullCheck<T>(this T obj, ErrorCodes errorCode, Guid entityId) where T: IIdentifiable
         {
             if (obj == null)
-                throw new MyShopException(errorCode);
+                throw new NotFoundException(errorCode, entityId);
         }
 
         public static string GetErrorMessage(this Enum value)
