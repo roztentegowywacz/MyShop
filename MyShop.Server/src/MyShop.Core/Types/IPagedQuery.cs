@@ -5,6 +5,12 @@ namespace MyShop.Core.Types
         int Page { get; }
         int ResultsPerPage { get; }
         string OrderBy { get; }
-        string SortOrder { get; }
+        SortOrder SortOrder { get; }
+    }
+
+    public enum SortOrder : byte
+    {
+        asc = 0,
+        desc = 1
     }
 }

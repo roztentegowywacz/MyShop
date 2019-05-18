@@ -13,12 +13,12 @@ using MyShop.Services.Products.Queries;
 
 namespace MyShop.Api.Controllers
 {
-    [AdminAuth]
     public class ProductsController : ApiController
     {
         public ProductsController(IDispatcher dispatcher) : base(dispatcher)
         { }
 
+        [AdminAuth]
         [HttpPost]
         public async Task<IActionResult> Post(CreateProduct command)
         {
@@ -45,6 +45,7 @@ namespace MyShop.Api.Controllers
             return Collection(products);
         }
 
+        [AdminAuth]
         [HttpPut("{id:guid}")]
         public async Task<IActionResult> Put(Guid id, UpdateProduct command)
         {
@@ -53,6 +54,7 @@ namespace MyShop.Api.Controllers
             return NoContent();
         }
 
+        [AdminAuth]
         [HttpDelete("{id:guid}")]
         public async Task<IActionResult> Delete([FromRoute] Guid id)
         {

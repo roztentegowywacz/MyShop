@@ -8,9 +8,8 @@ namespace MyShop.Services.Orders.Queries
     {
         public int Page { get; set; } = 1;
         public int ResultsPerPage { get; set; } = 10;
-        // TODO: implement order and sort by logic
-        public string OrderBy { get; set; }
-        public string SortOrder { get; set; }
+        public string OrderBy { get; set; } = "UpdatedAt";
+        public SortOrder SortOrder { get; set; } = SortOrder.asc;
 
         public OrderStatus Status { get; set; }
 

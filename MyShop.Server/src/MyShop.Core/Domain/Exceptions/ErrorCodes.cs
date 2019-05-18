@@ -52,14 +52,19 @@ namespace MyShop.Core.Domain.Exceptions
 
         [ErrorMessage("Product name cannot be empty.")]
         empty_product_name,
+
         [ErrorMessage("Product vendor cannot be empty.")]
         empty_product_vendor,
+
         [ErrorMessage("Product description cannot be empty.")]
         empty_product_description,
+
         [ErrorMessage("Product price cannot be zero or negative.")]
         invalid_product_price,
+        
         [ErrorMessage("Product quantity cannot be negative.")]
         invalid_product_quantity,
+        
         [ErrorMessage("Product is aleready deleted.")]
         product_deleted,
 

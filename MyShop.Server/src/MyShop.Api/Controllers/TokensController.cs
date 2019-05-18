@@ -13,6 +13,7 @@ namespace MyShop.Api.Controllers
     {
         public TokensController(IDispatcher dispatcher) : base(dispatcher) { }
 
+        [AllowAnonymous]
         [HttpPost("access-tokens/refresh")]
         public async Task<ActionResult<JsonWebToken>> RefreshAccessToken(RefreshAccessToken command)
         {
@@ -21,7 +22,6 @@ namespace MyShop.Api.Controllers
             return Ok(jwt);
         }
 
-        [JwtAuth]
         [HttpPost("access-tokens/revoke")]
         public async Task<IActionResult> RevokeAccessToken(RevokeAccessToken command)
         {

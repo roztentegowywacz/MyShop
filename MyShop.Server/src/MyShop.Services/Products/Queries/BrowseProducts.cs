@@ -1,4 +1,5 @@
 using System;
+using MyShop.Core.Domain.Products;
 using MyShop.Core.Types;
 using MyShop.Services.Products.Dtos;
 
@@ -8,9 +9,8 @@ namespace MyShop.Services.Products.Queries
     {
         public int Page { get; set; } = 1;
         public int ResultsPerPage { get; set; } = 10;
-        // TODO: implement order and sort by logic
-        public string OrderBy { get; set; }
-        public string SortOrder { get; set; }
+        public string OrderBy { get; set; } = "Name";
+        public SortOrder SortOrder { get; set; } = SortOrder.asc;
 
         public decimal PriceFrom { get; set; } = 0;
         public decimal PriceTo { get; set; } = decimal.MaxValue;
