@@ -3,10 +3,13 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Security.Claims;
+using System.Threading.Tasks;
 using Autofac;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using MyShop.Core.Domain;
+using MyShop.Core.Domain.Exceptions;
 using MyShop.Core.Domain.Identity;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -19,6 +22,7 @@ namespace MyShop.Infrastructure.Mvc
         public static IMvcCoreBuilder AddCustomMvc(this IServiceCollection services)
             => services
                 .AddMvcCore()
+                .AddFluentValidation()
                 .AddJsonFormatters()
                 .AddDefaultJsonOptions()
                 .AddAuthorization(o => o.AddPolicy("admin", p => p.RequireClaim(ClaimTypes.Role, Role.Admin)));
@@ -38,6 +42,11 @@ namespace MyShop.Infrastructure.Mvc
         public static void RegisterErrorHandlerMiddleware(this ContainerBuilder builder)
         {
             builder.RegisterType<ErrorHandlerMiddleware>().InstancePerDependency();
+        }
+
+        public static void AddValidator<TEntity>(this ContainerBuilder builder, TEntity entityValidator)
+        {
+            
         }
 
         public static IApplicationBuilder UseErrorHandler(this IApplicationBuilder builder)
@@ -68,5 +77,19 @@ namespace MyShop.Infrastructure.Mvc
 
             return model;
         }
+
+        public static void NullCheck<T>(this T obj, ErrorCodes errorCode, Guid entityId) where T: IIdentifiable
+        {
+            if (obj == null)
+                throw new NotFoundException(errorCode, entityId);
+        }
+
+        public static string GetErrorMessage(this Enum value)
+            => value.GetType()
+                    .GetMember(value.ToString())
+                    .FirstOrDefault()
+                    ?.GetCustomAttribute<ErrorMessageAttribute>()
+                    ?.Message;
+                
     }
 }

@@ -38,8 +38,7 @@ namespace MyShop.Core.Domain.Carts
             var item = GetCartItem(productId);
             if (item is null)
             {
-                throw new MyShopException("product_not_found",
-                    $"Product with id: '{productId}' was not found.");
+                throw new NotFoundException(ErrorCodes.product_not_found);
             }
             if (quantity is null || quantity == item.Quantity)
             {
@@ -58,8 +57,7 @@ namespace MyShop.Core.Domain.Carts
             var item = GetCartItem(product.Id);
             if (item is null)
             {
-                throw new MyShopException("product_not_found",
-                    $"Product with id: '{product.Id}' was not found.");
+                throw new NotFoundException(ErrorCodes.product_not_found);
             }
 
             item.UpdateProduct(product);

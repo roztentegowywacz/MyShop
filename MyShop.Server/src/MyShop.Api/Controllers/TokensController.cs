@@ -2,8 +2,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyShop.Core.Domain.Authentication;
-using MyShop.Infrastructure.Authentication;
-using MyShop.Services.Authentication.Commands;
+using MyShop.Services.Authentication.Commands.RefreshAccessToken;
+using MyShop.Services.Authentication.Commands.RevokeAccessToken;
 using MyShop.Services.Dispatchers;
 
 namespace MyShop.Api.Controllers
@@ -13,17 +13,17 @@ namespace MyShop.Api.Controllers
     {
         public TokensController(IDispatcher dispatcher) : base(dispatcher) { }
 
+        [AllowAnonymous]
         [HttpPost("access-tokens/refresh")]
-        public async Task<ActionResult<JsonWebToken>> RefreshAccessToken(RefreshAccessToken command)
+        public async Task<ActionResult<JsonWebToken>> RefreshAccessToken(RefreshAccessTokenCommand command)
         {
             var jwt = await _dispatcher.SendAndResponseDataAsync(command);
 
             return Ok(jwt);
         }
 
-        [JwtAuth]
         [HttpPost("access-tokens/revoke")]
-        public async Task<IActionResult> RevokeAccessToken(RevokeAccessToken command)
+        public async Task<IActionResult> RevokeAccessToken(RevokeAccessTokenCommand command)
         {
             await _dispatcher.SendAsync(command);
 

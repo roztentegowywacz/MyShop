@@ -29,6 +29,7 @@ namespace MyShop.Infrastructure
             builder.AddMongoDBRepository<Cart>("Carts");
             builder.AddMongoDBRepository<Customer>("Customers");
             builder.AddMongoDBRepository<Order>("Orders");
+            // builder.AddValidator<Product, ProductValidator>();
         }
     }
 }

@@ -28,8 +28,7 @@ namespace MyShop.Core.Domain.Products
         {
             if (string.IsNullOrEmpty(name))
             {
-                throw new MyShopException("empty_product_name",
-                    "Product name cannot be empty.");
+                throw new MyShopException(ErrorCodes.empty_product_name);
             }
 
             Name = name.Trim().ToLowerInvariant();
@@ -40,8 +39,7 @@ namespace MyShop.Core.Domain.Products
         {
             if(string.IsNullOrEmpty(vendor))
             {
-                throw new MyShopException("empty_product_vendor", 
-                    "Product vendor cannot be empty.");
+                throw new MyShopException(ErrorCodes.empty_product_vendor);
             }
 
             Vendor = vendor.Trim().ToLowerInvariant();
@@ -52,8 +50,7 @@ namespace MyShop.Core.Domain.Products
         {
             if (string.IsNullOrEmpty(description))
             {
-                throw new MyShopException("empty_product_description",
-                    "Product description cannot be empty.");
+                throw new MyShopException(ErrorCodes.empty_product_description);
             }
 
             Description = description.Trim();
@@ -64,8 +61,7 @@ namespace MyShop.Core.Domain.Products
         {
             if (price <= 0)
             {
-                throw new MyShopException("invalid_product_price",
-                    "Product price cannot be zero or negative.");
+                throw new MyShopException(ErrorCodes.invalid_product_price);
             }
 
             Price = price;
@@ -76,8 +72,7 @@ namespace MyShop.Core.Domain.Products
         {
             if (quantity < 0)
             {
-                throw new MyShopException("invalid_product_quantity",
-                    "Product quantity cannot be negative.");
+                throw new MyShopException(ErrorCodes.invalid_product_quantity);
             }
 
             Quantity = quantity;
@@ -88,8 +83,7 @@ namespace MyShop.Core.Domain.Products
         {
             if (!IsDeleted)
             {
-                throw new MyShopException("product_already_deleted",
-                    "Product is aleready deleted.");
+                throw new MyShopException(ErrorCodes.product_deleted);
             }
 
             IsDeleted = true;

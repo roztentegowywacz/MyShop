@@ -24,8 +24,7 @@ namespace MyShop.Core.Domain.Carts
         {
             if (quantity <= 0)
             {
-                throw new MyShopException("negative_quantity",
-                    "Quantity can not be negative.");
+                throw new MyShopException(ErrorCodes.negative_quantity);
             }
 
             Quantity += quantity;
@@ -35,13 +34,11 @@ namespace MyShop.Core.Domain.Carts
         {
             if (quantity <= 0)
             {
-                throw new MyShopException("negative_quantity",
-                    "Quantity can not be negative.");
+                throw new MyShopException(ErrorCodes.negative_quantity);
             }
             if (quantity > Quantity)
             {
-                throw new MyShopException("invalid_quantity",
-                    "Quantity can not be greater than actula quantity.");
+                throw new MyShopException(ErrorCodes.invalid_quantity);
             }
 
             Quantity -= quantity;

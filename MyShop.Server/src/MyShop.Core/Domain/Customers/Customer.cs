@@ -36,8 +36,7 @@ namespace MyShop.Core.Domain.Customers
         {
             if (!EmailRegex.IsMatch(email))
             {
-                throw new MyShopException("invalid_email_address",
-                    $"Invalid email: '{email}'.");
+                throw new MyShopException(ErrorCodes.invalid_email);
             }
 
             Email = email.Trim().ToLowerInvariant();
