@@ -1,13 +1,16 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MyShop.Services.Dispatchers;
-using MyShop.Services.Orders.Commands;
 using MyShop.Infrastructure.Mvc;
 using MyShop.Infrastructure.Authentication;
 using MyShop.Services.Orders.Dtos;
-using MyShop.Services.Orders.Queries;
 using System;
 using Microsoft.AspNetCore.Authorization;
+using MyShop.Services.Orders.Commands.CreateOrder;
+using MyShop.Services.Orders.Queries.GetOrder;
+using MyShop.Services.Orders.Queries.BrowseOrders;
+using MyShop.Services.Orders.Commands.ChangeOrderStatus;
+using MyShop.Services.Orders.Commands.CancelOrder;
 
 namespace MyShop.Api.Controllers
 {
@@ -21,16 +24,16 @@ namespace MyShop.Api.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<IActionResult> Post(CreateOrder command)
+        public async Task<IActionResult> Post(CreateOrderCommand command)
         {
             await _dispatcher.SendAsync(command.BindId(c => c.Id));
 
-            return CreatedAtAction(nameof(Get), new GetOrder() { Id = command.Id }, null);
+            return CreatedAtAction(nameof(Get), new GetOrderQuery() { Id = command.Id }, null);
         }
 
         [AllowAnonymous]
         [HttpGet("{id:guid}")]
-        public async Task<ActionResult<OrderDetailsDto>> Get([FromRoute] GetOrder query)
+        public async Task<ActionResult<OrderDetailsDto>> Get([FromRoute] GetOrderQuery query)
         {
             var order = await _dispatcher.QueryAsync(query);
 
@@ -39,7 +42,7 @@ namespace MyShop.Api.Controllers
 
         [AdminAuth]
         [HttpGet]
-        public async Task<IActionResult> Get([FromQuery] BrowseOrders query)
+        public async Task<IActionResult> Get([FromQuery] BrowseOrdersQuery query)
         {
             var orders = await _dispatcher.QueryAsync(query);
 
@@ -48,7 +51,7 @@ namespace MyShop.Api.Controllers
 
         [AdminAuth]
         [HttpPost("status")]
-        public async Task<IActionResult> Put(ChangeOrderStatus command)
+        public async Task<IActionResult> Put(ChangeOrderStatusCommand command)
         {
             await _dispatcher.SendAsync(command);
 
@@ -59,7 +62,7 @@ namespace MyShop.Api.Controllers
         [HttpPost("cancel/{id:Guid}")]
         public async Task<IActionResult> Put(Guid id)
         {
-            await _dispatcher.SendAsync(new CancelOrder(id, UserId));
+            await _dispatcher.SendAsync(new CancelOrderCommand(id, UserId));
 
             return NoContent();
         }
