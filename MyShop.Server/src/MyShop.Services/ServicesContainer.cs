@@ -2,6 +2,8 @@ using System.Reflection;
 using Autofac;
 using Microsoft.AspNetCore.Identity;
 using MyShop.Core.Domain.Identity;
+using MyShop.Infrastructure.FluentValidation;
+using MyShop.Services.Products.Commands.CreateProduct;
 
 namespace MyShop.Services
 {
@@ -16,6 +18,8 @@ namespace MyShop.Services
                 .InstancePerLifetimeScope();
 
             builder.RegisterType<PasswordHasher<User>>().As<IPasswordHasher<User>>();
+
+            builder.AddValidator<CreateProductValidator>();
         }
     }
 }

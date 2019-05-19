@@ -1,5 +1,5 @@
 @url = https://localhost:5001
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyM2EyZWNlZGEyMTA0OGIyYWM4YjE4ZjMzYTRlMmRlZiIsInVuaXF1ZV9uYW1lIjoiMjNhMmVjZWRhMjEwNDhiMmFjOGIxOGYzM2E0ZTJkZWYiLCJqdGkiOiIxZTY0Y2ZlMi0yMzk4LTQwYmUtOTIwZi1kOGIzNTcyMDRhNGEiLCJpYXQiOiIxNTU4MTc0NDkzNDgwIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiYWRtaW4iLCJuYmYiOjE1NTgxNzQ0OTMsImV4cCI6MTU1ODIzNDQ5MywiaXNzIjoiTXlTaG9wIn0.YTBHKJA5s4nKTQZro7DQOgy_7MlvMa-78MJeod-Lfb0
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyM2EyZWNlZGEyMTA0OGIyYWM4YjE4ZjMzYTRlMmRlZiIsInVuaXF1ZV9uYW1lIjoiMjNhMmVjZWRhMjEwNDhiMmFjOGIxOGYzM2E0ZTJkZWYiLCJqdGkiOiI0OTIwOTQyMS04MjQxLTRmM2ItYWI3Zi03Yjg0NzgxMGQwMTEiLCJpYXQiOiIxNTU4MjkyODM2Mzg1IiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiYWRtaW4iLCJuYmYiOjE1NTgyOTI4MzYsImV4cCI6MTU1ODM1MjgzNiwiaXNzIjoiTXlTaG9wIn0.4Eoffwv1KtFPj4Wia9MV2Zv6fRxgbhFWOQdTTrg4dmo
 @refreshToken = AQAAAAEAACcQAAAAEJgal0f34ebZ23U8JhLnHA4253aQpdqDJzK4zH6+7U9pOrn2fZz1r3PtOSbMPYOwkA==
 @myId = 23a2eced-a210-48b2-ac8b-18f33a4e2def
 @productId = 2488bc4c-e5a9-4d25-9b55-869c3e627371
@@ -13,11 +13,11 @@ Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-    "name": "bbbbb",
+    "name": "hhhhhhhh",
     "description": "desc",
-    "vendor": "bbbbb",
-    "price": 22.22,
-    "quantity": 222
+    "vendor": "hh",
+    "price": 8,
+    "quantity": 88
 }
 
 ### BROWSE products
