@@ -30,6 +30,16 @@ namespace MyShop.Core.Domain.Customers
             SetLastName(lastName);
             SetAddress(address);
             CompletedAt = DateTime.UtcNow;
+            SetUpdatedDate();
+        }
+
+        public void Update(string email, string firstName, string lastName, string address)
+        {
+            SetEmail(email);
+            SetFirstName(firstName);
+            SetLastName(lastName);
+            SetAddress(address);
+            SetUpdatedDate();
         }
 
         public void SetEmail(string email)
@@ -44,19 +54,19 @@ namespace MyShop.Core.Domain.Customers
         }
 
         // TODO: Add validation.
-        public void SetFirstName(string firstName)
+        private void SetFirstName(string firstName)
         {
             FirstName = firstName;
             SetUpdatedDate();
         }
 
-        public void SetLastName(string lastName)
+        private void SetLastName(string lastName)
         {
             LastName = lastName;
             SetUpdatedDate();
         }
 
-        public void SetAddress(string address)
+        private void SetAddress(string address)
         {
             Address = address;
             SetUpdatedDate();

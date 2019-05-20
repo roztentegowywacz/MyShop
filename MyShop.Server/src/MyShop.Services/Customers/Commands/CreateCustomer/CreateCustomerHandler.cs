@@ -21,8 +21,6 @@ namespace MyShop.Services.Customers.Commands.CreateCustomer
 
         public async Task HandleAsync(CreateCustomerCommand command)
         {
-            // TODO: zastnowić się jeszcze nad logiką
-
             var customer = await _customersRepository.GetAsync(command.Id);
             if (customer is null)
             {

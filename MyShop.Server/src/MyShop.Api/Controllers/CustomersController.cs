@@ -1,7 +1,9 @@
+using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyShop.Infrastructure.Mvc;
+using MyShop.Services.Customers.Commands.CompleteCustomer;
 using MyShop.Services.Customers.Commands.CreateCustomer;
 using MyShop.Services.Customers.Dtos;
 using MyShop.Services.Customers.Queries.GetCustomer;
@@ -33,7 +35,12 @@ namespace MyShop.Api.Controllers
             return Single(customer);
         }
 
-        // TODO: dodać logikę, do uzupełniania konta dla klienta jeśli jest już zarejestrowanym użytkownikiem.
-        // update?
+        [HttpPut("{id:guid}")]
+        public async Task<IActionResult> Put(Guid id, UpdateCustomerCommand command)
+        {
+            await _dispatcher.SendAsync(command.Bind(c => c.Id, id));
+
+            return NoContent();
+        }        
     }
 }
