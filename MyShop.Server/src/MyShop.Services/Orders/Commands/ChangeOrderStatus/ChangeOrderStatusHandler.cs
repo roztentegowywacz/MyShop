@@ -33,30 +33,37 @@ namespace MyShop.Services.Orders.Commands.ChangeOrderStatus
             switch (command.Status)
             {
                 case OrderStatus.Approved:
+                {
                     // TODO: ten status w momencie, gdy koszyk zostanie opłacony.
                     order.Approve();
                     await ReserveProductsAsync(order.Cart.Items);
                     break;
+                }
                 case OrderStatus.Completed:
+                {
                     // TODO: ten status w momencie, gdy zamówienie zostanie wysłane
                     order.Complete();
                     var cart = await _cartsRepository.GetAsync(order.Cart.Id);
                     cart.Clear();
                     await _cartsRepository.UpdateAsync(cart);
                     break;
+                }
                 case OrderStatus.Revoked:
+                {
                     order.Revoke();
                     // TODO: to samo dać dla cancel.
                     await ReleaseProductsAsync(order.Cart.Items);
                     break;
+                }
                 default:
+                {
                     throw new MyShopException(ErrorCodes.bad_order_status);
+                }
             }
 
             await _ordersRepository.UpdateAsync(order);
         }
 
-        // TODO: obsłużyć przypadek gdy nie ma wystarczającej ilości produktów w magazynie.
         private async Task ReserveProductsAsync(IEnumerable<CartItem> items)
             => await SetProductsQuantityAsync(items, SetMarker.minus);
 
@@ -70,7 +77,14 @@ namespace MyShop.Services.Orders.Commands.ChangeOrderStatus
                 var product = await _productsRepository.GetAsync(item.ProductId);
                 product.NullCheck(ErrorCodes.product_not_found, item.ProductId);
 
-                product.SetQuantity(product.Quantity + (int)setMarker * item.Quantity);
+                var setResultQuantity = product.Quantity + (int)setMarker * item.Quantity;
+                if (setResultQuantity < 0)
+                {
+                    throw new MyShopException("product_out_of_stock",
+                        $"Not enough product with id: '{product.Id}', to reserve requested quantity.");
+                }
+
+                product.SetQuantity(setResultQuantity);
                 await _productsRepository.UpdateAsync(product);
             }
         }

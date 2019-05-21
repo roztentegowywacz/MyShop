@@ -33,7 +33,6 @@ namespace MyShop.Services.Orders.Commands.CreateOrder
                     $"Can not create an order for not completed custommer with id: '{customer.Id}'.");
             }
 
-            // TODO: zmienić logikę, bo teraz klient może mimeć tylko jedno aktywne zamówineie. Zrobi unikatowe id koszyka.
             if (await _ordersRepository.HasPendingOrderAsync(customer.Id))
             {
                 throw new MyShopException("customer_has_pending_order",
